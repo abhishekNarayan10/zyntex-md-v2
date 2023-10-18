@@ -203,10 +203,10 @@ async function zyntex() {
       
                         async function send(){
 
-                          await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q}).then((res) => {
+                          await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
 
-                            fs.unlinkSync(videoFileName)
-                          })
+                            
+            
                         }send()
                           
                       
