@@ -217,8 +217,60 @@ async function zyntex() {
                   reply('*An Error Occured!*\n' + `_*${err}*_`)
                   }
               }
-                  
+
       }
+
+
+
+        if(body.startsWith(prefix + 'lyrics')){
+          read() , type()
+
+            const lyricQuery = body.slice(8).trim();
+  
+  
+           if(!lyricQuery){
+             reply('```Please provide a song name!\n\nex:```' + prefix + '```lyrics <Song Name>```');
+            }else{
+              try{
+
+                Musixmatch(lyricQuery).then((response) => {
+      
+  
+                  const title = response.title
+                  const author = response.artist
+                  const res = response.lyrics
+        
+    
+                  try{
+
+                    if(response.lyrics.length == 0){
+                    try{
+                       Google(lyricQuery).then((res)=>{
+                        reply(`_*${title}*_\n*${author}*\n\n${res}`)
+                       })
+                     }catch(err){
+                      reply(err)
+                     }
+                   }else{
+                     try{
+                       reply(`_*${title}*_\n*${author}*\n\n${res}`)
+                     }catch(err){
+                       reply(err)
+                     }
+                  }
+
+                  }catch(e){
+                    reply('*No Results Found!*')
+                  }
+                })
+
+              }catch(e){
+                reply('*An error occured!*' + e)
+              }
+            }
+          }
+
+        //
        
 
 
@@ -227,268 +279,6 @@ async function zyntex() {
       }catch(err){
         console.log(err)
       }
-      
-
-
-
     })
-
-
-
-
-    // zyn.ev.on('messages.upsert' , async(m) => {
-    //   try{
-    //     const q = m.messages[0]
-    //     if(!q) return
-
-    //     const messageTypes = Object.keys (q.message)
-    //     const messageType = messageTypes[0]
-    //     const id = m.messages[0].key.remoteJid
-    //     const fromMe = m.messages[0].key.fromMe === true
-
-    //     const reply = (msg) => {
-    //       zyn.sendMessage(id, { text: msg }, { quoted: q })
-    //     }
-    //      const message = (msg) => {
-    //       zyn.sendMessage(id, {text: msg})
-    //     }
-
-    //     const read = ()=>{
-    //       zyn.readMessages([q.key])
-    //     }
-    //     const react = (r) =>{
-    //       react: {
-    //         text: r
-    //         key: [q.key]
-    //       }
-    //     }
-    //     // const gm = q.message.conversation
-    //     // const dm = q.message.extendedTextMessage.text
-
-    //     // const body = (messageType === 'conversation') ? gm : '' || (messageType === 'extendedTextMessage') ? dm : ''
-
-    //     // messaging in group
-    //     if(messageType === 'conversation' && m.type === 'notify'){
-    //       const body = q.message.conversation
-
-
-    //       if(body === prefix + 'quote'){quote()
-  
-    //         const response = await fetch('https://api.quotable.io/random')
-    //         const quote = await response.json()
-                                
-    //         const qc = quote.content
-    //         const qa = quote.author
-    //         reply(`_*${qc}*_\n\n- *${qa}*`)
-      
-    //       }
-
-    //       if(body.startsWith(prefix + 'yt')){
-    //         const url = body.slice(3).trim()
-
-    //         if(!url){
-    //           reply('_*Give me a Youtube Url*_\n\n```ex:' + prefix + 'yt <YouTube Video Url>```')
-    //         }else{
-
-    //           try{
-
-    //             ytdl.getInfo(url).then((res) => {
-    //               const videoTitle = res.videoDetails.title
-                
-    //               reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
-                
-    //               const videoStream = ytdl(url, { quality: '18' })
-    //               const videoFileName = 'Zynt3x.mp4'
-    //               videoStream.pipe(fs.createWriteStream(videoFileName))
-                  
-    //               videoStream.on('end', () => {
-                
-    //                 async function yt(){
-      
-    //                   try{
-
-    //                     await zyn.sendMessage(id, {video: {url:videoFileName}, caption: '```' + videoTitle + '```'},{quoted:q}).then(()=>{
-    //                       fs.unlink(videoFileName)
-    //                     })
-
-    //                   }catch(er){}
-    //                 }yt()
-                
-    //               })
-    //             })
-        
-    //           }catch(err){
-    //             reply('*An Error Occured!*\n' + `_*${err}*_`)
-    //           }
-    //         }
-            
-    //       }
-
-    //       if(body.startsWith(prefix + 'lyrics')){read()
-
-    //         const lyricQuery = body.slice(8).trim();
-  
-  
-    //        if(!lyricQuery){
-    //          reply('```Please provide a song name!\n\nex:```' + prefix + '```lyrics <Song Name>```');
-    //         }else{
-    //           try{
-
-    //             Musixmatch(lyricQuery).then((response)=>{
-      
-  
-    //               const title = response.title
-    //               const author = response.artist
-    //               const res = response.lyrics
-        
-    
-    //               if(response.lyrics.length == 0){
-    //                 try{
-    //                    Google(lyricQuery).then((res)=>{
-    //                     reply(`_*${title}*_\n*${author}*\n\n${res}`)
-    //                    })
-    //                  }catch(err){
-    //                   reply(err)
-    //                  }
-    //                }else{
-    //                  try{
-    //                    reply(`_*${title}*_\n*${author}*\n\n${res}`)
-    //                  }catch(err){
-    //                    reply(err)
-    //                  }
-    //               }
-    //             })
-
-    //           }catch(err){
-    //             reply('*No Results Found!*')
-    //           }
-    //         }
-    //       }
-
-           
-    //     // messaging in dm
-    //     }else if(messageType === 'extendedTextMessage' && m.type === 'notify'){
-    //       const body = q.message.extendedTextMessage.text
-
-
-    //       if(body === prefix + 'quote'){read()
-  
-    //         const response = await fetch('https://api.quotable.io/random')
-    //         const quote = await response.json()
-                                
-    //         const qc = quote.content
-    //         const qa = quote.author
-    //         reply(`_*${qc}*_\n\n- *${qa}*`)
-      
-    //       }
-
-
-    //       if(body.startsWith(prefix + 'yt')){
-    //         read()
-    //         react(reaction[0].yt)
-
-    //         const url = body.slice(3).trim()
-
-    //         if(!url){
-    //           reply('_*Give me a Youtube Url*_\n\n```ex:' + prefix + 'yt <YouTube Video Url>```')
-    //         }else{
-
-    //           try{
-
-    //             ytdl.getInfo(url).then((res) => {
-    //               const videoTitle = res.videoDetails.title
-                
-    //               reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
-                
-    //               const videoStream = ytdl(url, { quality: '18' })
-    //               const videoFileName = 'Zynt3x.mp4'
-    //               videoStream.pipe(fs.createWriteStream(videoFileName))
-                  
-    //               videoStream.on('end', () => {
-                
-      
-    //                 async function yt(){
-
-    //                   try{
-
-    //                     await zyn.sendMessage(id, {video: {url:videoFileName}, caption: '```' + videoTitle + '```'},{quoted:q}).then(()=>{
-    //                       fs.unlink(videoFileName)
-    //                     })
-
-    //                   }catch(err){}
-                      
-
-    //                 }yt()
-              
-                
-    //               })
-    //             })
-        
-    //           }catch(err){
-    //             reply('*An Error Occured!*\n' + `_*${err}*_`)
-    //           }
-
-    //         }
-            
-    //       }
-
-
-
-           
-    //       if(body.startsWith(prefix + 'lyrics')){read()
-
-    //         const lyricQuery = body.slice(8).trim();
-  
-  
-    //        if(!lyricQuery){
-    //          reply('```Please provide a song name!\n\nex: .lyrics faded```');
-    //         }else{
-
-    //           try{
-    //             Musixmatch(lyricQuery).then((response)=>{
-      
-  
-    //               const title = response.title
-    //               const author = response.artist
-    //               const res = response.lyrics
-      
-    //               if(response.lyrics.length == 0){
-    //                 try{
-    //                    Google(lyricQuery).then((res)=>{
-    //                     reply(`_*${title}*_\n*${author}*\n\n${res}`)
-    //                    })
-    //                  }catch(err){
-    //                   reply(err)
-    //                  }
-    //                }else{
-    //                  try{
-    //                    reply(`_*${title}*_\n*${author}*\n\n${res}`)
-    //                  }catch(err){
-    //                    reply(err)
-    //                  }
-    //                 }
-    //             })
-    //           }catch(err){
-    //             reply('*No Results Found!*')
-    //           }
-  
-              
-    //         }
-    //       }
-
-
-        
-        
-        
-        
-        
-        
-        
-    //     }
-    //   }catch(err){
-    //     console.log(err)
-    //   }
-    // })
-
 
 }zyntex()    
