@@ -31,11 +31,11 @@ if(process.env.OWNER_NUMBER === undefined || process.env.OWNER_NUMBER === '' || 
   var ownerNumber = process.env.OWNER_NUMBER
 }
 
-if(fs.existsSync('./assets/downloads/Zynt3x.mp4')){
-  fs.unlinkSync('./assets/downloads/Zynt3x.mp4')
+if(fs.existsSync('./Zynt3x.mp4')){
+  fs.unlinkSync('./Zynt3x.mp4')
 }
-if(fs.existsSync('./assets/downloads/Zynt3x.mp3')){
-  fs.unlinkSync('./assets/downloads/Zynt3x.mp3')
+if(fs.existsSync('./Zynt3x.mp3')){
+  fs.unlinkSync('./Zynt3x.mp3')
 }
 
 figlet(`Zynt3x-MD`, function (e , data) {
@@ -211,7 +211,7 @@ async function zyntex() {
                   reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
                       
                       const videoStream = ytdl(url, { quality: '18' })
-                      const videoFileName = './assets/downloads/Zynt3x.mp4'
+                      const videoFileName = './Zynt3x.mp4'
                       videoStream.pipe(fs.createWriteStream(videoFileName))
                       
                       videoStream.on('finish', () => {
@@ -303,7 +303,7 @@ async function zyntex() {
                       quality: 'lowestaudio',
                     })
 
-                    const fileName = './assets/downloads/Zynt3x.mp3'
+                    const fileName = './Zynt3x.mp3'
 
                     ffmpeg(stream)
                       .audioBitrate(128)
@@ -356,7 +356,7 @@ async function zyntex() {
                       quality: 'lowestaudio',
                     })
   
-                    const fileName = './assets/downloads/Zynt3x.mp3'
+                    const fileName = './Zynt3x.mp3'
   
                     ffmpeg(stream)
                       .audioBitrate(128)
@@ -408,7 +408,7 @@ async function zyntex() {
                   reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
                       
                       const videoStream = ytdl(url, { quality: '18' })
-                      const videoFileName = './assets/downloads/Zynt3x.mp4'
+                      const videoFileName = './Zynt3x.mp4'
                       videoStream.pipe(fs.createWriteStream(videoFileName))
                       
                       videoStream.on('finish', () => {
