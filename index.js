@@ -14,7 +14,6 @@ require('dotenv').config()
 const { Google, Musixmatch } = require("@flytri/lyrics-finder")
 const c = require('ansi-colors')
 var figlet = require("figlet");
-const reaction = require('./plugins/reaction.js')
 const readline = require('readline');
 const ffmpeg = require('fluent-ffmpeg');
 const yts = require( 'yt-search' )
