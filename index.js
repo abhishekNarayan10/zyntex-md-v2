@@ -15,7 +15,7 @@ const { Google, Musixmatch } = require("@flytri/lyrics-finder")
 const c = require('ansi-colors')
 var figlet = require("figlet");
 const readline = require('readline');
-const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpegPath = require('@ffmpeg-installer/darwin-arm64').path;
 const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath)
 const yts = require( 'yt-search' )
