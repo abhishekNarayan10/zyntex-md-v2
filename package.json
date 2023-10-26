@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@flytri/lyrics-finder": "^1.0.7",
     "@hapi/boom": "^10.0.1",
     "@thetalabs/node-ffmpeg-installer": "^1.1.0",
     "@whiskeysockets/baileys": "^6.5.0",
