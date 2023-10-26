@@ -685,5 +685,6 @@ async function zyntex() {
     //   }
     // })
 
+  zyn.ev.on('creds.update', saveCreds)
 
 }zyntex()    
