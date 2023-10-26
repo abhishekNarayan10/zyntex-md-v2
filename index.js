@@ -120,6 +120,7 @@ async function zyntex() {
       
         const read = () =>{
           zyn.readMessages([q.key])
+          delay(1000)
         }
 
         const type = () => {
