@@ -18,7 +18,7 @@ const yts = require( 'yt-search' )
 const { generate } = require("sanzy-chatgptv2")
 
 
-
+let botName = '𝙕𝙮𝙣𝙩𝙚𝙭!'
 const prefix = process.env.BOT_PREFIX || '.'
 module.exports = prefix
 if(process.env.OWNER_NUMBER === undefined || process.env.OWNER_NUMBER === '' || !process.env.OWNER_NUMBER.startsWith('+') ){
@@ -92,6 +92,8 @@ async function zyntex() {
     zyn.ev.on('messages.upsert' , async(m) => {
 
       try{
+
+        let userName = m.messages[0].pushName
 
         const q = m.messages[0]
         if(!q) return
@@ -336,6 +338,7 @@ async function zyntex() {
         
                 ytdl.getInfo(url).then((res) => {
                     const videoTitle = res.videoDetails.title
+                    const r = res.videoDetails.thumbnail.thumbnails[4].url
                         
                     reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
 
@@ -355,7 +358,17 @@ async function zyntex() {
       
                         async function send(){  
 
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4'},{quoted:q})
+                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' , contextInfo:{
+                            externalAdReply:{
+                              title: videoTitle,
+                              body: botName,
+                              thumbnailUrl: r,
+                              mediaType: 1,
+                              showAdAttribution: true,
+                              renderLargerThumbnail: false,
+                              sourceUrl: res.videoDetails.video_url
+                            }
+                          }},{quoted:q})
                           
                         }send()
                           
@@ -385,9 +398,7 @@ async function zyntex() {
                 yts(query).then((res) => {
                   const videos = res.videos.slice(0 , 3)
                   const url = videos[0].url
-
-
-
+                  const r = res.all[0].thumbnail
 
                   ytdl.getInfo(url).then((res) => {
                     const videoTitle = res.videoDetails.title
@@ -410,7 +421,17 @@ async function zyntex() {
       
                         async function send(){  
 
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4'},{quoted:q})
+                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' , contextInfo: {
+                            externalAdReply: {
+                              title: videoTitle,
+                              body: botName,
+                              thumbnailUrl: r,
+                              mediaType: 1,
+                              showAdAttribution: true,
+                              renderLargerThumbnail: false,
+                              sourceUrl: res.videoDetails.video_url
+                            }
+                          }},{quoted:q})
                           
                         }send()
                           
