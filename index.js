@@ -421,7 +421,7 @@ async function zyntex() {
       
                         async function send(){  
 
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' , contextInfo: {
+                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' , footer:botName, contextInfo: {
                             externalAdReply: {
                               title: videoTitle,
                               body: botName,
