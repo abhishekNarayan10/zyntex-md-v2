@@ -358,17 +358,7 @@ async function zyntex() {
       
                         async function send(){  
 
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' , contextInfo:{
-                            externalAdReply:{
-                              title: videoTitle,
-                              body: botName,
-                              thumbnailUrl: r,
-                              mediaType: 1,
-                              showAdAttribution: true,
-                              renderLargerThumbnail: false,
-                              sourceUrl: res.videoDetails.video_url
-                            }
-                          }},{quoted:q})
+                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4'},{quoted:q})
                           
                         }send()
                           
