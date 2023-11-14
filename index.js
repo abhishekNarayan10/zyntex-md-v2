@@ -95,7 +95,6 @@ async function zyntex() {
       try{
 
         let userName = m.messages[0].pushName
-        const botNumber = await zyn.decodeJid(zyn.user.id)
 
         const q = m.messages[0]
         if(!q) return
