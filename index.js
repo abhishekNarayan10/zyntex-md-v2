@@ -503,7 +503,7 @@ async function zyntex() {
               const result = r.result[0]
   
               async function send(){  
-                await zyn.sendMessage(id, {video: {url: result}, mimetype:'video/mp4' , caption: botName + ' with  ❤️'},{quoted:q})
+                await zyn.sendMessage(id, {video: {url: result}, mimetype:'video/mp4' , caption: botName + ' with ❤️'},{quoted:q})
               }send()
             }
   
