@@ -53,6 +53,7 @@ async function zyntex() {
     const zyn = makeWASocket({
       printQRInTerminal: true,
       auth: state,
+      browser:['Zynt3x - MD' , 'safari' , '1.0.0']
     })
 
 
@@ -94,6 +95,7 @@ async function zyntex() {
       try{
 
         let userName = m.messages[0].pushName
+        const botNumber = await zyn.decodeJid(zyn.user.id)
 
         const q = m.messages[0]
         if(!q) return
@@ -487,6 +489,32 @@ async function zyntex() {
             }
                 
       }
+      if(body.startsWith(prefix + 'ig')){
+        read()
+        const url = body.slice(3).trim()
+        if(!url) throw errorMsg('Need a Instagram Link!' , 'ig' , 'Instagram Link')
+
+        try {
+          var res = await fetch(`https://inrl-web-fkns.onrender.com/api/insta?url=${url}`);
+          let rr = await res.json().then((r) => {
+
+            if (!r || !r.result || r.result.length === 0) {
+              reply('_*No Results Found!*_');
+            }else{
+              const result = r.result[0]
+  
+              async function send(){  
+                await zyn.sendMessage(id, {video: {url: result}, mimetype:'video/mp4' , caption: botName + 'with  ❤️'},{quoted:q})
+              }send()
+            }
+  
+          })
+        } catch (err) {
+          reply('*An Error Occured!*\n' + `_*${err}*_`);
+        }
+
+      }
+        
 
       
      }catch(err){
