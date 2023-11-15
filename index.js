@@ -241,38 +241,40 @@ async function zyntex() {
 
         if(body.startsWith(prefix + 'ytv')){
           read() , type()
-          const url = body.slice(4).trim()
+
+          reply('_*Sorry, Need Some Fix 🛠️!*_')
+          // const url = body.slice(4).trim()
       
-          if(!url){
-            errorMsg('Give a Youtube video Url!' , 'ytv' , 'YouTube Video Url')
-          }else{
+          // if(!url){
+          //   errorMsg('Give a Youtube video Url!' , 'ytv' , 'YouTube Video Url')
+          // }else{
       
-              try{
+          //     try{
       
-              ytdl.getInfo(url).then((res) => {
-                  const videoTitle = res.videoDetails.title
+          //     ytdl.getInfo(url).then((res) => {
+          //         const videoTitle = res.videoDetails.title
                       
-                  reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+          //         reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
                       
-                      const videoStream = ytdl(url, { quality: '18' })
-                      const videoFileName = './Zynt3x.mp4'
-                      videoStream.pipe(fs.createWriteStream(videoFileName))
+          //             const videoStream = ytdl(url, { quality: '18' })
+          //             const videoFileName = './Zynt3x.mp4'
+          //             videoStream.pipe(fs.createWriteStream(videoFileName))
                       
-                      videoStream.on('finish', () => {
+          //             videoStream.on('finish', () => {
                       
       
-                        async function send(){  
-                          await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
-                        }send()
+          //               async function send(){  
+          //                 await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
+          //               }send()
                           
                       
-                      })
-                  })
+          //             })
+          //         })
               
-                  }catch(err){
-                  reply('*An Error Occured!*\n' + `_*${err}*_`)
-                  }
-              }
+          //         }catch(err){
+          //         reply('*An Error Occured!*\n' + `_*${err}*_`)
+          //         }
+          //     }
                   
       }
 
@@ -329,48 +331,50 @@ async function zyntex() {
 
           if(body.startsWith(prefix + 'yta')){
             read() , type()
-            const url = body.slice(4).trim()
+
+            reply('_*Sorry, Need Some Fix 🛠️!*_')
+            // const url = body.slice(4).trim()
         
-            if(!url){
-              errorMsg('Need Youtube video Url!' , 'yta' , 'YouTube Video Url')
-            }else{
+            // if(!url){
+            //   errorMsg('Need Youtube video Url!' , 'yta' , 'YouTube Video Url')
+            // }else{
         
-                try{
+            //     try{
         
-                ytdl.getInfo(url).then((res) => {
-                    const videoTitle = res.videoDetails.title
-                    const r = res.videoDetails.thumbnail.thumbnails[4].url
+            //     ytdl.getInfo(url).then((res) => {
+            //         const videoTitle = res.videoDetails.title
+            //         const r = res.videoDetails.thumbnail.thumbnails[4].url
                         
-                    reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+            //         reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
 
 
-                    let stream = ytdl(url, {
-                      quality: 'lowestaudio',
-                    })
+            //         let stream = ytdl(url, {
+            //           quality: 'lowestaudio',
+            //         })
 
-                    const fileName = './Zynt3x.mp3'
+            //         const fileName = './Zynt3x.mp3'
 
 
 
-                    stream.pipe(fs.createWriteStream(fileName))
+            //         stream.pipe(fs.createWriteStream(fileName))
                       
-                      stream.on('finish', () => {
+            //           stream.on('finish', () => {
                       
       
-                        async function send(){  
+            //             async function send(){  
 
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4'},{quoted:q})
+            //               await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4'},{quoted:q})
                           
-                        }send()
+            //             }send()
                           
                       
-                      })
-                    })
+            //           })
+            //         })
                 
-                    }catch(err){
-                    reply('*An Error Occured!*\n' + `_*${err}*_`)
-                    }
-                }
+            //         }catch(err){
+            //         reply('*An Error Occured!*\n' + `_*${err}*_`)
+            //         }
+            //     }
                     
         }
 
@@ -378,67 +382,69 @@ async function zyntex() {
 
         if(body.startsWith(prefix + 'song')){
           read() , type()
-          const query = body.slice(5)
-      
-          if(!query){
-            errorMsg('Need a Query!' , 'song' , 'Query')
-          }else{
-      
-              try{
 
-                yts(query).then((res) => {
-                  const videos = res.videos.slice(0 , 3)
-                  const url = videos[0].url
-                  const r = res.all[0].thumbnail
+          reply('_*Sorry, Need Some Fix 🛠️!*_')
+          // const query = body.slice(5)
+      
+          // if(!query){
+          //   errorMsg('Need a Query!' , 'song' , 'Query')
+          // }else{
+      
+          //     try{
 
-                  ytdl.getInfo(url).then((res) => {
-                    const videoTitle = res.videoDetails.title
+          //       yts(query).then((res) => {
+          //         const videos = res.videos.slice(0 , 3)
+          //         const url = videos[0].url
+          //         const r = res.all[0].thumbnail
+
+          //         ytdl.getInfo(url).then((res) => {
+          //           const videoTitle = res.videoDetails.title
                         
-                    reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+          //           reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
   
   
-                    let stream = ytdl(url, {
-                      quality: 'lowestaudio',
-                    })
+          //           let stream = ytdl(url, {
+          //             quality: 'lowestaudio',
+          //           })
   
-                    const fileName = './Zynt3x.mp3'
+          //           const fileName = './Zynt3x.mp3'
 
 
 
-                    stream.pipe(fs.createWriteStream(fileName))
+          //           stream.pipe(fs.createWriteStream(fileName))
                       
-                      stream.on('finish', () => {
+          //             stream.on('finish', () => {
                       
       
-                        async function send(){  
+          //               async function send(){  
 
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' ,contextInfo: {
-                            externalAdReply: {
-                              title: videoTitle,
-                              body: botName,
-                              thumbnailUrl: r,
-                              mediaType: 1,
-                              showAdAttribution: true,
-                              renderLargerThumbnail: false,
-                              sourceUrl: res.videoDetails.video_url
-                            }
-                          }},{quoted:q})
+          //                 await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' ,contextInfo: {
+          //                   externalAdReply: {
+          //                     title: videoTitle,
+          //                     body: botName,
+          //                     thumbnailUrl: r,
+          //                     mediaType: 1,
+          //                     showAdAttribution: true,
+          //                     renderLargerThumbnail: false,
+          //                     sourceUrl: res.videoDetails.video_url
+          //                   }
+          //                 }},{quoted:q})
                           
-                        }send()
+          //               }send()
                           
                       
-                      })
+          //             })
                     
-                    })
+          //           })
 
 
                   
-                })
+          //       })
               
-                  }catch(err){
-                  reply('*An Error Occured!*\n' + `_*${err}*_`)
-                  }
-              }
+          //         }catch(err){
+          //         reply('*An Error Occured!*\n' + `_*${err}*_`)
+          //         }
+          //     }
                   
       }
 
@@ -448,46 +454,50 @@ async function zyntex() {
 
       if(body.startsWith(prefix + 'video')){
         read() , type()
-        const query = body.slice(6)
-    
-        if(!query){
-          errorMsg('Need a Query!' , 'video' , 'Query')
-        }else{
-    
-            try{
 
-              yts(query).then((res) => {
-                const videos = res.videos.slice(0 , 3)
-                const url = videos[0].url
+        reply('_*Sorry, Need Some Fix 🛠️!*_')
+        // const query = body.slice(6)
+    
+        // if(!query){
+        //   errorMsg('Need a Query!' , 'video' , 'Query')
+        // }else{
+    
+        //     try{
 
-                ytdl.getInfo(url).then((res) => {
-                  const videoTitle = res.videoDetails.title
+        //       yts(query).then((res) => {
+        //         const videos = res.videos.slice(0 , 3)
+        //         const url = videos[0].url
+
+        //         ytdl.getInfo(url).then((res) => {
+        //           const videoTitle = res.videoDetails.title
                       
-                  reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+        //           reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
                       
-                      const videoStream = ytdl(url, { quality: '18' })
-                      const videoFileName = './Zynt3x.mp4'
-                      videoStream.pipe(fs.createWriteStream(videoFileName))
+        //               const videoStream = ytdl(url, { quality: '18' })
+        //               const videoFileName = './Zynt3x.mp4'
+        //               videoStream.pipe(fs.createWriteStream(videoFileName))
                       
-                      videoStream.on('finish', () => {
+        //               videoStream.on('finish', () => {
                       
       
-                        async function send(){  
-                          await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
-                        }send()
+        //                 async function send(){  
+        //                   await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
+        //                 }send()
                           
                       
-                      })
-                  })
+        //               })
+        //           })
                 
-                })
+        //         })
             
-                }catch(err){
-                reply('*An Error Occured!*\n' + `_*${err}*_`)
-                }
-            }
+        //         }catch(err){
+        //         reply('*An Error Occured!*\n' + `_*${err}*_`)
+        //         }
+        //     }
                 
       }
+
+        
       if(body.startsWith(prefix + 'ig')){
         read()
         const url = body.slice(3).trim()
