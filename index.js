@@ -158,12 +158,6 @@ async function zyntex() {
           reply('_*' + query + '*_\n\n```ex:  ' +prefix + command + ' <' + example + '>```')
         }
 
-        const reaction = {
-          react: {
-            key: msg
-          }
-        }
-
         //messaging!
 
 
