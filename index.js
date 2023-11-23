@@ -16,7 +16,7 @@ const c = require('ansi-colors')
 var figlet = require("figlet");
 const yts = require( 'yt-search' )
 const { generate } = require("sanzy-chatgptv2")
-const logger = require('pino')
+const { default: pino } = require('pino')
 
 
 let botName = '𝙕𝙮𝙣𝙩𝙚𝙭!'
