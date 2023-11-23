@@ -117,7 +117,7 @@ async function zyntex() {
         const id = m.messages[0].key.remoteJid
         const key = m.messages[0].key
 
-        let msg = {
+        let i = {
           remoteJid: q.key.remoteJid ,
           id: q.key.id
         }
