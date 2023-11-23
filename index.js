@@ -16,6 +16,7 @@ const c = require('ansi-colors')
 var figlet = require("figlet");
 const yts = require( 'yt-search' )
 const { generate } = require("sanzy-chatgptv2")
+const logger = require('pino')
 
 
 let botName = '𝙕𝙮𝙣𝙩𝙚𝙭!'
@@ -35,14 +36,24 @@ if(fs.existsSync('./Zynt3x.mp3')){
   fs.unlinkSync('./Zynt3x.mp3')
 }
 
-figlet(`Zynt3x-MD`, function (e , data) {
-    console.log(c.redBright.bold(data))
-    if(e){
-      console.log(e)
+figlet.text(
+  "ZYNTEX-MD",
+  {
+    font: "Cybermedium",
+    horizontalLayout: "default",
+    verticalLayout: "default",
+    whitespaceBreak: true,
+  },
+  function (err, data) {
+    if (err) {
+      console.log("Something went wrong...");
+      console.dir(err);
+      return;
     }
+    console.log(c.red.bold(data));
     console.log(c.gray.bold(`------------------------------------------------`))
-});
-
+  }
+)
 const sessionFile = './session.json'
 
 async function zyntex() {
@@ -51,6 +62,7 @@ async function zyntex() {
     console.log(c.blue.italic(`Baileys Version: ${version}\nIs Latest: ${isLatest}` ))
     console.log(c.gray.bold(`------------------------------------------------`))
     const zyn = makeWASocket({
+      logger: pino({level: "silent"}),
       printQRInTerminal: true,
       auth: state,
       browser:['Zynt3x - MD' , 'safari' , '1.0.0']
@@ -173,27 +185,7 @@ async function zyntex() {
 
         }
 
-        // if (body.startsWith(prefix + 'ai')) {
-        //   read() , type()
-        //   const command = `tgpt -q "${body.slice(3)}"`;
-        //   try {
-        //     const { stdout, stderr } = await executeCommand(command);
-        //     const response = stdout || stderr;
-        //     reply(response);
-        //   } catch (error) {
-        //     reply(`Error: ${error.message}`);
-        //   }
-      
-        //   async function executeCommand(command) {
-        //     try {
-        //       const { stdout, stderr } = await exec(command);
-        //       return{ stdout, stderr };
-        //     } catch (error) {
-        //       throw error;
-        //     }
-        // }
-        // }
-
+        
 
         if(body.startsWith(prefix + 'ai')){
           read() , type()
@@ -242,39 +234,38 @@ async function zyntex() {
         if(body.startsWith(prefix + 'ytv')){
           read() , type()
 
-          reply('_*Sorry, Need Some Fix 🛠️!*_')
-          // const url = body.slice(4).trim()
+          const url = body.slice(4).trim()
       
-          // if(!url){
-          //   errorMsg('Give a Youtube video Url!' , 'ytv' , 'YouTube Video Url')
-          // }else{
+          if(!url){
+            errorMsg('Give a Youtube video Url!' , 'ytv' , 'YouTube Video Url')
+          }else{
       
-          //     try{
+              try{
       
-          //     ytdl.getInfo(url).then((res) => {
-          //         const videoTitle = res.videoDetails.title
+              ytdl.getInfo(url).then((res) => {
+                  const videoTitle = res.videoDetails.title
                       
-          //         reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+                  reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
                       
-          //             const videoStream = ytdl(url, { quality: '18' })
-          //             const videoFileName = './Zynt3x.mp4'
-          //             videoStream.pipe(fs.createWriteStream(videoFileName))
+                      const videoStream = ytdl(url, { quality: '18' })
+                      const videoFileName = './Zynt3x.mp4'
+                      videoStream.pipe(fs.createWriteStream(videoFileName))
                       
-          //             videoStream.on('finish', () => {
+                      videoStream.on('finish', () => {
                       
       
-          //               async function send(){  
-          //                 await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
-          //               }send()
+                        async function send(){  
+                          await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
+                        }send()
                           
                       
-          //             })
-          //         })
+                      })
+                  })
               
-          //         }catch(err){
-          //         reply('*An Error Occured!*\n' + `_*${err}*_`)
-          //         }
-          //     }
+                  }catch(err){
+                  reply('*An Error Occured!*\n' + `_*${err}*_`)
+                  }
+              }
                   
       }
 
@@ -332,119 +323,118 @@ async function zyntex() {
           if(body.startsWith(prefix + 'yta')){
             read() , type()
 
-            reply('_*Sorry, Need Some Fix 🛠️!*_')
-            // const url = body.slice(4).trim()
+            const url = body.slice(4).trim()
         
-            // if(!url){
-            //   errorMsg('Need Youtube video Url!' , 'yta' , 'YouTube Video Url')
-            // }else{
+            if(!url){
+              errorMsg('Need Youtube video Url!' , 'yta' , 'YouTube Video Url')
+            }else{
         
-            //     try{
+                try{
         
-            //     ytdl.getInfo(url).then((res) => {
-            //         const videoTitle = res.videoDetails.title
-            //         const r = res.videoDetails.thumbnail.thumbnails[4].url
+                ytdl.getInfo(url).then((res) => {
+                    const videoTitle = res.videoDetails.title
+                    const r = res.videoDetails.thumbnail.thumbnails[4].url
                         
-            //         reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+                    reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
 
 
-            //         let stream = ytdl(url, {
-            //           quality: 'lowestaudio',
-            //         })
+                    let stream = ytdl(url, {
+                      quality: 'lowestaudio',
+                    })
 
-            //         const fileName = './Zynt3x.mp3'
+                    const fileName = './Zynt3x.mp3'
 
 
 
-            //         stream.pipe(fs.createWriteStream(fileName))
+                    stream.pipe(fs.createWriteStream(fileName))
                       
-            //           stream.on('finish', () => {
+                      stream.on('finish', () => {
                       
       
-            //             async function send(){  
+                        async function send(){  
 
-            //               await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4'},{quoted:q})
+                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4'},{quoted:q})
                           
-            //             }send()
+                        }send()
                           
                       
-            //           })
-            //         })
+                      })
+                    })
                 
-            //         }catch(err){
-            //         reply('*An Error Occured!*\n' + `_*${err}*_`)
-            //         }
-            //     }
+                    }catch(err){
+                    reply('*An Error Occured!*\n' + `_*${err}*_`)
+                    }
+                }
                     
         }
 
 
 
         if(body.startsWith(prefix + 'song')){
+          await zyn.sendMessage(id, {react: {text: '💫' , key: i}})
           read() , type()
-
-          reply('_*Sorry, Need Some Fix 🛠️!*_')
-          // const query = body.slice(5)
+          
+          const query = body.slice(5)
       
-          // if(!query){
-          //   errorMsg('Need a Query!' , 'song' , 'Query')
-          // }else{
+          if(!query){
+            errorMsg('Need a Query!' , 'song' , 'Query')
+          }else{
       
-          //     try{
+              try{
 
-          //       yts(query).then((res) => {
-          //         const videos = res.videos.slice(0 , 3)
-          //         const url = videos[0].url
-          //         const r = res.all[0].thumbnail
+                yts(query).then((res) => {
+                  const videos = res.videos.slice(0 , 3)
+                  const url = videos[0].url
+                  const r = res.all[0].thumbnail
 
-          //         ytdl.getInfo(url).then((res) => {
-          //           const videoTitle = res.videoDetails.title
+                  ytdl.getInfo(url).then((res) => {
+                    const videoTitle = res.videoDetails.title
                         
-          //           reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+                    reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
   
   
-          //           let stream = ytdl(url, {
-          //             quality: 'lowestaudio',
-          //           })
+                    let stream = ytdl(url, {
+                      quality: 'lowestaudio',
+                    })
   
-          //           const fileName = './Zynt3x.mp3'
+                    const fileName = './Zynt3x.mp3'
 
 
 
-          //           stream.pipe(fs.createWriteStream(fileName))
+                    stream.pipe(fs.createWriteStream(fileName))
                       
-          //             stream.on('finish', () => {
+                      stream.on('finish', () => {
                       
       
-          //               async function send(){  
+                        async function send(){  
 
-          //                 await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' ,contextInfo: {
-          //                   externalAdReply: {
-          //                     title: videoTitle,
-          //                     body: botName,
-          //                     thumbnailUrl: r,
-          //                     mediaType: 1,
-          //                     showAdAttribution: true,
-          //                     renderLargerThumbnail: false,
-          //                     sourceUrl: res.videoDetails.video_url
-          //                   }
-          //                 }},{quoted:q})
+                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' ,contextInfo: {
+                            externalAdReply: {
+                              title: videoTitle,
+                              body: botName,
+                              thumbnailUrl: r,
+                              mediaType: 1,
+                              showAdAttribution: true,
+                              renderLargerThumbnail: false,
+                              sourceUrl: res.videoDetails.video_url
+                            }
+                          }},{quoted:q})
                           
-          //               }send()
+                        }send()
                           
                       
-          //             })
+                      })
                     
-          //           })
+                    })
 
 
                   
-          //       })
+                })
               
-          //         }catch(err){
-          //         reply('*An Error Occured!*\n' + `_*${err}*_`)
-          //         }
-          //     }
+                  }catch(err){
+                  reply('*An Error Occured!*\n' + `_*${err}*_`)
+                  }
+              }
                   
       }
 
@@ -455,45 +445,44 @@ async function zyntex() {
       if(body.startsWith(prefix + 'video')){
         read() , type()
 
-        reply('_*Sorry, Need Some Fix 🛠️!*_')
-        // const query = body.slice(6)
+        const query = body.slice(6)
     
-        // if(!query){
-        //   errorMsg('Need a Query!' , 'video' , 'Query')
-        // }else{
+        if(!query){
+          errorMsg('Need a Query!' , 'video' , 'Query')
+        }else{
     
-        //     try{
+            try{
 
-        //       yts(query).then((res) => {
-        //         const videos = res.videos.slice(0 , 3)
-        //         const url = videos[0].url
+              yts(query).then((res) => {
+                const videos = res.videos.slice(0 , 3)
+                const url = videos[0].url
 
-        //         ytdl.getInfo(url).then((res) => {
-        //           const videoTitle = res.videoDetails.title
+                ytdl.getInfo(url).then((res) => {
+                  const videoTitle = res.videoDetails.title
                       
-        //           reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+                  reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
                       
-        //               const videoStream = ytdl(url, { quality: '18' })
-        //               const videoFileName = './Zynt3x.mp4'
-        //               videoStream.pipe(fs.createWriteStream(videoFileName))
+                      const videoStream = ytdl(url, { quality: '18' })
+                      const videoFileName = './Zynt3x.mp4'
+                      videoStream.pipe(fs.createWriteStream(videoFileName))
                       
-        //               videoStream.on('finish', () => {
+                      videoStream.on('finish', () => {
                       
       
-        //                 async function send(){  
-        //                   await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
-        //                 }send()
+                        async function send(){  
+                          await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
+                        }send()
                           
                       
-        //               })
-        //           })
+                      })
+                  })
                 
-        //         })
+                })
             
-        //         }catch(err){
-        //         reply('*An Error Occured!*\n' + `_*${err}*_`)
-        //         }
-        //     }
+                }catch(err){
+                reply('*An Error Occured!*\n' + `_*${err}*_`)
+                }
+            }
                 
       }
 
