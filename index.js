@@ -372,7 +372,7 @@ async function zyntex() {
 
 
         if(body.startsWith(prefix + 'song')){
-          read() , type() , react('🌠')
+          read() , type()
           const query = body.slice(5)
       
           if(!query) throw errorMsg('Need a Query!' , 'song' , 'Query')
