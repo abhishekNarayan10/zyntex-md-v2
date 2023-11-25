@@ -327,8 +327,6 @@ async function zyntex() {
         
                 ytdl.getInfo(url).then((res) => {
                     const videoTitle = res.videoDetails.title
-                    const r = res.videoDetails.thumbnail.thumbnails[4].url
-                        
                     reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
 
 
