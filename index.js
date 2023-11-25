@@ -71,8 +71,13 @@ async function zyntex() {
 
     zyn.ev.on('connection.update' , async(tex) => {
       let { lastDisconnect , connection } = tex
-      if(connection) {
-        console.log(c.green(`Connection Status: ${connection}`))
+      if(connection === "connecting") {
+        console.log(c.green('Connecting to Whatsapp...'))
+      }
+      if(connection === "open"){
+        await zyn.sendMessage(zyn.user.id , {text: '*BOT STARTED SUCCESSFULLY!*\nPrefix: ' + `${prefix}` + '\n\n _Thanks For Using Zynt3x - MD_'})
+        console.log(c.green('Successfully connected to Whatsapp!'))
+        console.log(c.green('\n\nBOT STARTED SUCCESSFULLY!'))
       }
       if (connection === "close") {
         let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
