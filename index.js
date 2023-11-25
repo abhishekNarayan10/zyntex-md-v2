@@ -163,12 +163,16 @@ async function zyntex() {
           reply('_*' + query + '*_\n\n```ex:  ' +prefix + command + ' <' + example + '>```')
         }
 
+        const react = (emoji) => {
+          zyn.sendMessage(id, {react: {text: emoji , key: i}})
+        }
+
         //messaging!
 
 
         if(body === prefix +'alive'){
 
-          read() , type()
+          read() , type() , react('❤️')
 
           const response = await fetch('https://api.quotable.io/random')
           const quote = await response.json()
@@ -368,8 +372,7 @@ async function zyntex() {
 
 
         if(body.startsWith(prefix + 'song')){
-          await zyn.sendMessage(id, {react: {text: '💫' , key: i}})
-          read() , type()
+          read() , type() , react('💫')
           
           const query = body.slice(5)
       
