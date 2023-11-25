@@ -372,13 +372,10 @@ async function zyntex() {
 
 
         if(body.startsWith(prefix + 'song')){
-          read() , type() , react('💫')
-          
+          read() , type() , react('🌠')
           const query = body.slice(5)
       
-          if(!query){
-            errorMsg('Need a Query!' , 'song' , 'Query')
-          }else{
+          if(!query) throw errorMsg('Need a Query!' , 'song' , 'Query')
       
               try{
 
@@ -408,7 +405,7 @@ async function zyntex() {
       
                         async function send(){  
 
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4' ,contextInfo: {
+                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4', contextInfo: {
                             externalAdReply: {
                               title: videoTitle,
                               body: botName,
@@ -434,7 +431,6 @@ async function zyntex() {
                   }catch(err){
                   reply('*An Error Occured!*\n' + `_*${err}*_`)
                   }
-              }
                   
       }
 
