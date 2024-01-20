@@ -9,6 +9,9 @@
   },
   "keywords": [],
   "author": "",
+  "engines": {
+    "node": "18.x"
+  },
   "license": "ISC",
   "dependencies": {
     "@flytri/lyrics-finder": "^1.0.7",
