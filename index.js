@@ -172,17 +172,11 @@ async function zyntex() {
 
         if(body === prefix +'alive'){
 
-          read() , type() , react('❤️')
+          read() , type()
 
-          const response = await fetch('https://api.quotable.io/random')
-          const quote = await response.json()
-        
-          const qc = quote.content
-          const qa = quote.author
+          const msg = `*Hey! ${userName}* \n*I'm Alive...*`
 
-          const msg = '*Hey! Im Alive*' + '\n\n' + '```' + qc + '\n\n-' + qa + '```'
-
-          await zyn.sendMessage(id, {image: {url : 'https://i.ibb.co/bj0z6Qk/Picsart-23-01-13-22-45-07-160.jpg'} , caption:msg} , {quoted:q})
+          await zyn.sendMessage(id, {image: {url : './assets/alive.jpg'} , caption:msg} , {quoted:q})
 
 
 
