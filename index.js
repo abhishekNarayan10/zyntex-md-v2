@@ -477,7 +477,7 @@ async function zyntex() {
         let query = body.slice(3)
 
         if(!query){
-          errorMsg('Need a Query!' , '.ai' , 'Query')
+          errorMsg('Need a Query!' , 'ai' , 'Query')
         }else{
           try{
 
