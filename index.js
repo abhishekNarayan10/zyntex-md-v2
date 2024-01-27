@@ -478,7 +478,7 @@ async function zyntex() {
         if(!query){
           errorMsg('Need a Query!' , 'ai' , 'Query')
         }else{
-          reply('*Generating...*🔄')
+          reply('*Generating...*  🔄')
           try{
 
             const genAI = new GoogleGenerativeAI("AIzaSyBd4SAi5JADrlqYS0m4gvWMlWSiSVD2Wyg");
