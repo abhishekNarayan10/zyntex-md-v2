@@ -473,12 +473,12 @@ async function zyntex() {
 
         if(body.startsWith(prefix + 'ai')){
         read() , type()
-        reply('*Generating...*🔄')
         let query = body.slice(3)
 
         if(!query){
           errorMsg('Need a Query!' , 'ai' , 'Query')
         }else{
+          reply('*Generating...*🔄')
           try{
 
             const genAI = new GoogleGenerativeAI("AIzaSyBd4SAi5JADrlqYS0m4gvWMlWSiSVD2Wyg");
