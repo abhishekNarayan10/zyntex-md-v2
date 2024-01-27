@@ -15,8 +15,8 @@ const { Google, Musixmatch } = require("@flytri/lyrics-finder")
 const c = require('ansi-colors')
 var figlet = require("figlet");
 const yts = require( 'yt-search' )
-const { generate } = require("sanzy-chatgptv2")
 const { default: pino } = require('pino')
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 
 let botName = '𝙕𝙮𝙣𝙩𝙚𝙭!'
