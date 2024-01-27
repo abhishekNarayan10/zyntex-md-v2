@@ -182,39 +182,6 @@ async function zyntex() {
 
         }
 
-        
-
-        if(body.startsWith(prefix + 'ai')){
-          read() , type()
-          
-          let query = body.slice(3)
-
-          if(!query){
-            errorMsg('Need a Query!' , '.ai' , 'Query')
-          }else{
-            try{
-
-              async function gpt(){
-
-                generate(query).then((res) => {
-            
-                  reply(res.reply)
-                    
-                }).catch((err) => {
-                  reply('*An Error Occured!*\n' + `_*${err}*_`)
-                })
-              }gpt()
-
-            }catch(err){
-
-              reply('*An Error Occured!*\n' + `_*${err}*_`)
-
-            }
-          }
-        
-        }
-
-
         if(body === prefix + 'quote'){
           read() , type()
   
@@ -501,6 +468,38 @@ async function zyntex() {
           reply('*An Error Occured!*\n' + `_*${err}*_`);
         }
 
+      }
+
+
+        if(body.startsWith(prefix + 'ai')){
+        read() , type()
+        reply('*Generating...*🔄')
+        let query = body.slice(3)
+
+        if(!query){
+          errorMsg('Need a Query!' , '.ai' , 'Query')
+        }else{
+          try{
+
+            const genAI = new GoogleGenerativeAI("AIzaSyBd4SAi5JADrlqYS0m4gvWMlWSiSVD2Wyg");
+
+            async function run() {
+              const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+              const result = await model.generateContent(query);
+              const response = await result.response;
+              const text = response.text();
+              reply(text);
+            }
+            
+            run();
+
+          }catch(err){
+
+            reply('*An Error Occured!*\n' + `_*${err}*_`)
+
+          }
+        }
+      
       }
         
 
