@@ -170,6 +170,15 @@ async function zyntex() {
         //messaging!
 
 
+        if(body === prefix + 'ping'){
+          const start = new Date().getTime();
+          const end = new Date().getTime();
+          return reply(
+            "*Pong!*\n ```" + (end - start) + "``` *ms*"
+          )
+        }
+
+
         if(body === prefix +'alive'){
 
           read() , type()
