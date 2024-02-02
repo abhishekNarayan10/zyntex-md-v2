@@ -165,7 +165,7 @@ async function zyntex() {
         }
 
         const react = (emoji) => {
-          zyn.sendMessage(id, {react: {text: emoji , key: m.key}})
+          zyn.sendMessage(id, {react: {text: emoji , key: q.key}})
         }        
 
         //messaging!
