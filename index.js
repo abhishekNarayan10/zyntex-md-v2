@@ -345,71 +345,71 @@ async function zyntex() {
                     
         }
 
-
-
         if(body.startsWith(prefix + 'song')){
           read() , type()
           const query = body.slice(5)
       
-          if(!query) throw errorMsg('Need a Query!' , 'song' , 'Query')
-      
-              try{
+        if(!query) {
+          errorMsg('Need a Query!' , 'song' , 'Query')
+        }else{
+          try{
 
-                yts(query).then((res) => {
-                  const videos = res.videos.slice(0 , 3)
-                  const url = videos[0].url
-                  const r = res.all[0].thumbnail
+            yts(query).then((res) => {
+              const videos = res.videos.slice(0 , 3)
+              const url = videos[0].url
+              const r = res.all[0].thumbnail
 
-                  ytdl.getInfo(url).then((res) => {
-                    const videoTitle = res.videoDetails.title
-                        
-                    reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
-  
-  
-                    let stream = ytdl(url, {
-                      quality: 'lowestaudio',
-                    })
-  
-                    const fileName = './Zynt3x.mp3'
-
-
-
-                    stream.pipe(fs.createWriteStream(fileName))
-                      
-                      stream.on('finish', () => {
-                      
-      
-                        async function send(){  
-
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4', contextInfo: {
-                            externalAdReply: {
-                              title: videoTitle,
-                              body: botName,
-                              thumbnailUrl: r,
-                              mediaType: 1,
-                              showAdAttribution: true,
-                              renderLargerThumbnail: false,
-                              sourceUrl: res.videoDetails.video_url
-                            }
-                          }},{quoted:q})
-                          
-                        }send()
-                          
-                      
-                      })
+              ytdl.getInfo(url).then((res) => {
+                const videoTitle = res.videoDetails.title
                     
-                    })
+                reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
 
 
-                  
+                let stream = ytdl(url, {
+                  quality: 'lowestaudio',
                 })
+
+                const fileName = './Zynt3x.mp3'
+
+
+
+                stream.pipe(fs.createWriteStream(fileName))
+                  
+                  stream.on('finish', () => {
+                  
+  
+                    async function send(){  
+
+                      await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4', contextInfo: {
+                        externalAdReply: {
+                          title: videoTitle,
+                          body: botName,
+                          thumbnailUrl: r,
+                          mediaType: 1,
+                          showAdAttribution: true,
+                          renderLargerThumbnail: false,
+                          sourceUrl: res.videoDetails.video_url
+                        }
+                      }},{quoted:q})
+                      
+                    }send()
+                      
+                  
+                  })
+                
+                })
+
+
               
-                  }catch(err){
-                  reply('*An Error Occured!*\n' + `_*${err}*_`)
-                  }
+            })
+          
+              }catch(err){
+              reply('*An Error Occured!*\n' + `_*${err}*_`)
+              }
+        }
+      
                   
       }
-
 
 
 
