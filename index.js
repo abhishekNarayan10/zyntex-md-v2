@@ -169,7 +169,6 @@ async function zyntex() {
 
         const ping = (endDate) => {
           const start = new Date().getTime()
-          console.log(start)
           const end = endDate
           return reply(
             "*Pong!*\n ```" + (start - end) + "``` *ms*"
@@ -183,7 +182,6 @@ async function zyntex() {
 
         if(body === prefix + 'ping'){
           let now = new Date().getTime()
-          console.log(now)
           ping(now)
         }
 
