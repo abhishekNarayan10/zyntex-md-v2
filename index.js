@@ -167,17 +167,25 @@ async function zyntex() {
           zyn.sendMessage(id, {react: {text: emoji , key: i}})
         }
 
-        //messaging!
-
-
-        if(body === prefix + 'ping'){
-          const start = new Date().getTime();
-          const end = new Date().getTime();
+        const ping = (endDate) => {
+          const start = new Date().getTime()
+          console.log(start)
+          const end = endDate
           return reply(
-            "*Pong!*\n ```" + (end - start) + "``` *ms*"
+            "*Pong!*\n ```" + (start - end) + "``` *ms*"
           )
+
         }
 
+        
+
+        //messaging!
+
+        if(body === prefix + 'ping'){
+          let now = new Date().getTime()
+          console.log(now)
+          ping(now)
+        }
 
         if(body === prefix +'alive'){
 
