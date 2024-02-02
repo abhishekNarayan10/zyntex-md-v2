@@ -17,9 +17,10 @@ var figlet = require("figlet");
 const yts = require( 'yt-search' )
 const { default: pino } = require('pino')
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { default: axios } = require('axios')
 
 
-let botName = '𝙕𝙮𝙣𝙩𝙚𝙭!'
+let botName = '𝙕𝙮𝙣𝙩3𝙭!'
 const prefix = process.env.BOT_PREFIX || '.'
 module.exports = prefix
 if(process.env.OWNER_NUMBER === undefined || process.env.OWNER_NUMBER === '' || !process.env.OWNER_NUMBER.startsWith('+') ){
@@ -164,30 +165,26 @@ async function zyntex() {
         }
 
         const react = (emoji) => {
-          zyn.sendMessage(id, {react: {text: emoji , key: i}})
-        }
-
-        const ping = (endDate) => {
-          const start = new Date().getTime()
-          const end = endDate
-          return reply(
-            "*Pong!*\n ```" + (start - end) + "``` *ms*"
-          )
-
-        }
-
-        
+          zyn.sendMessage(id, {react: {text: emoji , key: m.key}})
+        }        
 
         //messaging!
 
         if(body === prefix + 'ping'){
-          let now = new Date().getTime()
-          ping(now)
+          read(),type(),react('📍')
+          const start = Date.now()
+          await axios.get('https://google.com')
+          const end = Date.now()
+          const ping = end - start
+          return reply(
+            '```Pong: ' + ping + 'ms```'
+          )
         }
+
 
         if(body === prefix +'alive'){
 
-          read() , type()
+          read() , type(), react('🪼')
 
           const msg = `*Hey! ${userName}* \n*I'm Alive...*`
 
@@ -198,7 +195,7 @@ async function zyntex() {
         }
 
         if(body === prefix + 'quote'){
-          read() , type()
+          read() , type() , react('📜')
   
           const response = await fetch('https://api.quotable.io/random')
           const quote = await response.json()
@@ -211,7 +208,7 @@ async function zyntex() {
 
 
         if(body.startsWith(prefix + 'ytv')){
-          read() , type()
+          read() , type() , react('🎥')
 
           const url = body.slice(4).trim()
       
@@ -250,7 +247,7 @@ async function zyntex() {
 
 
       if(body.startsWith(prefix + 'lyrics')){
-          read() , type()
+          read() , type() , react('🪶🪶')
 
             const lyricQuery = body.slice(8);
   
@@ -300,7 +297,7 @@ async function zyntex() {
 
 
           if(body.startsWith(prefix + 'yta')){
-            read() , type()
+            read() , type() , react('🎶')
 
             const url = body.slice(4).trim()
         
@@ -346,7 +343,7 @@ async function zyntex() {
         }
 
         if(body.startsWith(prefix + 'song')){
-          read() , type()
+          read() , type() , react('🎵')
           const query = body.slice(5)
       
         if(!query) {
@@ -415,8 +412,8 @@ async function zyntex() {
 
 
       if(body.startsWith(prefix + 'video')){
-        read() , type()
-
+        read() , type() , react('🎦')
+ 
         const query = body.slice(6)
     
         if(!query){
@@ -459,35 +456,35 @@ async function zyntex() {
       }
 
         
-      if(body.startsWith(prefix + 'ig')){
-        read()
-        const url = body.slice(3).trim()
-        if(!url) throw errorMsg('Need a Instagram Link!' , 'ig' , 'Instagram Link')
+      // if(body.startsWith(prefix + 'ig')){
+      //   read()
+      //   const url = body.slice(3).trim()
+      //   if(!url) throw errorMsg('Need a Instagram Link!' , 'ig' , 'Instagram Link')
 
-        try {
-          var res = await fetch(`https://inrl-web-fkns.onrender.com/api/insta?url=${url}`);
-          let rr = await res.json().then((r) => {
+      //   try {
+      //     var res = await fetch(`https://inrl-web-fkns.onrender.com/api/insta?url=${url}`);
+      //     let rr = await res.json().then((r) => {
 
-            if (!r || !r.result || r.result.length === 0) {
-              reply('_*No Results Found!*_');
-            }else{
-              const result = r.result[0]
+      //       if (!r || !r.result || r.result.length === 0) {
+      //         reply('_*No Results Found!*_');
+      //       }else{
+      //         const result = r.result[0]
   
-              async function send(){  
-                await zyn.sendMessage(id, {video: {url: result}, mimetype:'video/mp4' , caption: botName + ' with ❤️'},{quoted:q})
-              }send()
-            }
+      //         async function send(){  
+      //           await zyn.sendMessage(id, {video: {url: result}, mimetype:'video/mp4' , caption: botName + ' with ❤️'},{quoted:q})
+      //         }send()
+      //       }
   
-          })
-        } catch (err) {
-          reply('*An Error Occured!*\n' + `_*${err}*_`);
-        }
+      //     })
+      //   } catch (err) {
+      //     reply('*An Error Occured!*\n' + `_*${err}*_`);
+      //   }
 
-      }
+      // }
 
 
         if(body.startsWith(prefix + 'ai')){
-        read() , type()
+        read() , type() , react('🪄')
         let query = body.slice(3)
 
         if(!query){
@@ -515,6 +512,14 @@ async function zyntex() {
           }
         }
       
+      }
+
+        if(body.startsWith(prefix + 'error')){
+        read() , type() , react('🧰')
+        const query = body
+        await zyn.sendMessage('916282888139@s.whatsapp.net', {text: query}).then(
+          reply('*Thank you for describing your error!* \n*Your error has been sent to admin.*')
+        )
       }
         
 
