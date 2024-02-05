@@ -1,9 +1,9 @@
-const {default:makeWASocket,
-AnyMessageContent,delay, DisconnectReason, fetchLatestBaileysVersion, getAggregateVotesInPollMessage,downloadMediaMessage,
-makeCacheableSignalKeyStore, makeInMemoryStore, PHONENUMBER_MCC,proto,
-useMultiFileAuthState, WAMessageContent,WAMessageKey, 
-Mimetype, MessageType, 
-MessageOptions
+const { default: makeWASocket,
+  AnyMessageContent, delay, DisconnectReason, fetchLatestBaileysVersion, getAggregateVotesInPollMessage, downloadMediaMessage,
+  makeCacheableSignalKeyStore, makeInMemoryStore, PHONENUMBER_MCC, proto,
+  useMultiFileAuthState, WAMessageContent, WAMessageKey,
+  Mimetype, MessageType,
+  MessageOptions
 } = require('@whiskeysockets/baileys')
 let { Boom } = require("@hapi/boom")
 const fs = require('fs')
@@ -14,7 +14,7 @@ require('dotenv').config()
 const { Google, Musixmatch } = require("@flytri/lyrics-finder")
 const c = require('ansi-colors')
 var figlet = require("figlet");
-const yts = require( 'yt-search' )
+const yts = require('yt-search')
 const { default: pino } = require('pino')
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { default: axios } = require('axios')
@@ -23,17 +23,17 @@ const { default: axios } = require('axios')
 let botName = '𝙕𝙮𝙣𝙩3𝙭!'
 const prefix = process.env.BOT_PREFIX || '.'
 module.exports = prefix
-if(process.env.OWNER_NUMBER === undefined || process.env.OWNER_NUMBER === '' || !process.env.OWNER_NUMBER.startsWith('+') ){
+if (process.env.OWNER_NUMBER === undefined || process.env.OWNER_NUMBER === '' || !process.env.OWNER_NUMBER.startsWith('+')) {
   console.log(c.redBright.italic('Plaese set a appropriate value on your .env file for OWNER_NUMBER'))
   return
-}else{
+} else {
   var ownerNumber = process.env.OWNER_NUMBER
 }
 
-if(fs.existsSync('./Zynt3x.mp4')){
+if (fs.existsSync('./Zynt3x.mp4')) {
   fs.unlinkSync('./Zynt3x.mp4')
 }
-if(fs.existsSync('./Zynt3x.mp3')){
+if (fs.existsSync('./Zynt3x.mp3')) {
   fs.unlinkSync('./Zynt3x.mp3')
 }
 
@@ -58,37 +58,37 @@ figlet.text(
 const sessionFile = './session.json'
 
 async function zyntex() {
-    const { state, saveCreds } = await useMultiFileAuthState(sessionFile)
-    const { version , isLatest } = await fetchLatestBaileysVersion()
-    console.log(c.blue.italic(`Baileys Version: ${version}\nIs Latest: ${isLatest}` ))
-    console.log(c.gray.bold(`------------------------------------------------`))
-    const zyn = makeWASocket({
-      logger: pino({level: "silent"}),
-      printQRInTerminal: true,
-      auth: state,
-      browser:['Zynt3x - MD' , 'safari' , '1.0.0']
-    })
+  const { state, saveCreds } = await useMultiFileAuthState(sessionFile)
+  const { version, isLatest } = await fetchLatestBaileysVersion()
+  console.log(c.blue.italic(`Baileys Version: ${version}\nIs Latest: ${isLatest}`))
+  console.log(c.gray.bold(`------------------------------------------------`))
+  const zyn = makeWASocket({
+    logger: pino({ level: "silent" }),
+    printQRInTerminal: true,
+    auth: state,
+    browser: ['Zynt3x - MD', 'safari', '1.0.0']
+  })
 
 
-    zyn.ev.on('connection.update' , async(tex) => {
-      let { lastDisconnect , connection } = tex
-      if(connection === "connecting") {
-        console.log(c.green('Connecting to Whatsapp...'))
-      }
-      if(connection === "open"){
-        await zyn.sendMessage(zyn.user.id , {text: '*BOT STARTED SUCCESSFULLY!*\nPrefix: ' + `${prefix}` + '\n\n _Thanks For Using Zynt3x - MD_'})
-        console.log(c.green('Successfully connected to Whatsapp!'))
-        console.log(c.green('\n\nBOT STARTED SUCCESSFULLY!'))
-      }
-      if (connection === "close") {
-        let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
+  zyn.ev.on('connection.update', async (tex) => {
+    let { lastDisconnect, connection } = tex
+    if (connection === "connecting") {
+      console.log(c.green('Connecting to Whatsapp...'))
+    }
+    if (connection === "open") {
+      await zyn.sendMessage(zyn.user.id, { text: '*BOT STARTED SUCCESSFULLY!*\nPrefix: ' + `${prefix}` + '\n\n _Thanks For Using Zynt3x - MD_' })
+      console.log(c.green('Successfully connected to Whatsapp!'))
+      console.log(c.green('\n\nBOT STARTED SUCCESSFULLY!'))
+    }
+    if (connection === "close") {
+      let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
       if (reason === DisconnectReason.badSession) {
         console.log(c.red(`Bad Session!, Please Delete ${sessionFile} and Scan Again`));
         zyn.logout();
       } else if (reason === DisconnectReason.connectionClosed) {
         console.log(c.blue("Connection closed!, reconnecting...."));
         zyntex();
-      }else if (reason === DisconnectReason.connectionLost) {
+      } else if (reason === DisconnectReason.connectionLost) {
         console.log(c.blue("Connection Lost from Server!, Reconnecting..."));
         zyntex();
       } else if (reason === DisconnectReason.connectionReplaced) {
@@ -105,260 +105,263 @@ async function zyntex() {
         zyntex();
       } else {
         zyn.end(c.red(`DisconnectReason: ${reason}|${lastDisconnect.error}`));
-      }}
-    })
+      }
+    }
+  })
 
-    zyn.ev.on('messages.upsert' , async(m) => {
+  zyn.ev.on('messages.upsert', async (m) => {
 
-      try{
+    try {
 
-        let userName = m.messages[0].pushName
+      let userName = m.messages[0].pushName
 
-        const q = m.messages[0]
-        if(!q) return
+      const q = m.messages[0]
+      if (!q) return
 
-        const messageTypes = Object.keys (q.message)
-        const messageType = messageTypes[0]
+      const messageTypes = Object.keys(q.message)
+      const messageType = messageTypes[0]
 
-        const id = m.messages[0].key.remoteJid
-        const key = m.messages[0].key
+      const id = m.messages[0].key.remoteJid
+      const key = m.messages[0].key
 
-        let i = {
-          remoteJid: q.key.remoteJid ,
-          id: q.key.id
-        }
+      let i = {
+        remoteJid: q.key.remoteJid,
+        id: q.key.id
+      }
 
-        let body = ''
-        if(messageType === 'conversation' && m.type === 'notify'){
-          var grpMsg = q.message.conversation
-          body = grpMsg
-        }else if (messageType === 'extendedTextMessage' && m.type === 'notify'){
-          var dmMsg = q.message.extendedTextMessage.text
-          body = dmMsg 
-        }
-
-
-
-        const reply = (msg) => {
-          zyn.sendMessage(id, { text: msg }, { quoted: q })
-        }
-        const message = (msg) => {
-          zyn.sendMessage(id, {text: msg})
-        }
-      
-        const read = () =>{
-          zyn.readMessages([q.key])
-        }
-
-        const type = () => {
-          zyn.sendPresenceUpdate('composing' , id)
-          delay(1000)
-        }
-
-        const record = () => {
-          zyn.sendPresenceUpdate('recording' , id)
-          delay(1000)
-        }
-
-        const errorMsg = (query , command , example) => {
-          reply('_*' + query + '*_\n\n```ex:  ' +prefix + command + ' <' + example + '>```')
-        }
-
-        const react = (emoji) => {
-          zyn.sendMessage(id, {react: {text: emoji , key: q.key}})
-        }        
-
-        //messaging!
-
-        if(body === prefix + 'ping'){
-          read(),type(),react('📍')
-          const start = Date.now()
-          await axios.get('https://google.com')
-          const end = Date.now()
-          const ping = end - start
-          return reply(
-            '```Pong: ' + ping + 'ms```'
-          )
-        }
-
-
-        if(body === prefix +'alive'){
-
-          read() , type(), react('🪼')
-
-          const msg = `*Hey! ${userName}* \n*I'm Alive...*`
-
-          await zyn.sendMessage(id, {image: {url : './assets/alive.jpg'} , caption:msg} , {quoted:q})
-
-
-
-        }
-
-        if(body === prefix + 'quote'){
-          read() , type() , react('📜')
-  
-          const response = await fetch('https://api.quotable.io/random')
-          const quote = await response.json()
-                                      
-          const qc = quote.content
-          const qa = quote.author
-          reply(`_*${qc}*_\n\n- *${qa}*`)
-            
-        }
-
-
-        if(body.startsWith(prefix + 'ytv')){
-          read() , type() , react('🎥')
-
-          const url = body.slice(4).trim()
-      
-          if(!url){
-            errorMsg('Give a Youtube video Url!' , 'ytv' , 'YouTube Video Url')
-          }else{
-      
-              try{
-      
-              ytdl.getInfo(url).then((res) => {
-                  const videoTitle = res.videoDetails.title
-                      
-                  reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
-                      
-                      const videoStream = ytdl(url, { quality: '18' })
-                      const videoFileName = './Zynt3x.mp4'
-                      videoStream.pipe(fs.createWriteStream(videoFileName))
-                      
-                      videoStream.on('finish', () => {
-                      
-      
-                        async function send(){  
-                          await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
-                        }send()
-                          
-                      
-                      })
-                  })
-              
-                  }catch(err){
-                  reply('*An Error Occured!*\n' + `_*${err}*_`)
-                  }
-              }
-                  
+      let body = ''
+      if (messageType === 'conversation' && m.type === 'notify') {
+        var grpMsg = q.message.conversation
+        body = grpMsg
+      } else if (messageType === 'extendedTextMessage' && m.type === 'notify') {
+        var dmMsg = q.message.extendedTextMessage.text
+        body = dmMsg
       }
 
 
-      if(body.startsWith(prefix + 'lyrics')){
-          read() , type() , react('🪶🪶')
 
-            const lyricQuery = body.slice(8);
-  
-  
-           if(!lyricQuery){
-             errorMsg('Need a Query!', 'lyrics' , 'Song Name')
-            }else{
-              try{
+      const reply = (msg) => {
+        zyn.sendMessage(id, { text: msg }, { quoted: q })
+      }
+      const message = (msg) => {
+        zyn.sendMessage(id, { text: msg })
+      }
 
-                Musixmatch(lyricQuery).then((response) => {
-      
-  
-                  const title = response.title
-                  const author = response.artist
-                  const res = response.lyrics
-        
-    
-                  try{
+      const read = () => {
+        zyn.readMessages([q.key])
+      }
 
-                    if(response.lyrics.length == 0){
-                    try{
-                       Google(lyricQuery).then((res)=>{
-                        reply(`_*${title}*_\n*${author}*\n\n${res}`)
-                       })
-                     }catch(err){
-                      reply(err)
-                     }
-                   }else{
-                     try{
-                       reply(`_*${title}*_\n*${author}*\n\n${res}`)
-                     }catch(err){
-                       reply(err)
-                     }
-                  }
+      const type = () => {
+        zyn.sendPresenceUpdate('composing', id)
+        delay(1000)
+      }
 
-                  }catch(e){
-                    reply('*No Results Found!*')
-                  }
-                })
+      const record = () => {
+        zyn.sendPresenceUpdate('recording', id)
+        delay(1000)
+      }
 
-              }catch(e){
-                reply('*An error occured!*' + e)
-              }
-            }
+      const errorMsg = (query, command, example) => {
+        reply('_*' + query + '*_\n\n```ex:  ' + prefix + command + ' <' + example + '>```')
+      }
+
+      const react = (emoji) => {
+        zyn.sendMessage(id, { react: { text: emoji, key: q.key } })
+      }
+
+      module.exports = {reply,read,type,errorMsg,react}
+
+      //messaging!
+
+      if (body === prefix + 'ping') {
+        read(), type(), react('📍')
+        const start = Date.now()
+        await axios.get('https://google.com')
+        const end = Date.now()
+        const ping = end - start
+        return reply(
+          '```Pong: ' + ping + 'ms```'
+        )
+      }
+
+
+      if (body === prefix + 'alive') {
+
+        read(), type(), react('🪼')
+
+        const msg = `*Hey! ${userName}* \n*I'm Alive...*`
+
+        await zyn.sendMessage(id, { image: { url: './assets/alive.jpg' }, caption: msg }, { quoted: q })
+
+
+
+      }
+
+      if (body === prefix + 'quote') {
+        read(), type(), react('📜')
+
+        const response = await fetch('https://api.quotable.io/random')
+        const quote = await response.json()
+
+        const qc = quote.content
+        const qa = quote.author
+        reply(`_*${qc}*_\n\n- *${qa}*`)
+
+      }
+
+
+      if (body.startsWith(prefix + 'ytv')) {
+        read(), type(), react('🎥')
+
+        const url = body.slice(4).trim()
+
+        if (!url) {
+          errorMsg('Give a Youtube video Url!', 'ytv', 'YouTube Video Url')
+        } else {
+
+          try {
+
+            ytdl.getInfo(url).then((res) => {
+              const videoTitle = res.videoDetails.title
+
+              reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+
+              const videoStream = ytdl(url, { quality: '18' })
+              const videoFileName = './Zynt3x.mp4'
+              videoStream.pipe(fs.createWriteStream(videoFileName))
+
+              videoStream.on('finish', () => {
+
+
+                async function send() {
+                  await zyn.sendMessage(id, { video: { url: videoFileName }, mimetype: 'video/mp4', caption: '```' + videoTitle + '```' }, { quoted: q })
+                } send()
+
+
+              })
+            })
+
+          } catch (err) {
+            reply('*An Error Occured!*\n' + `_*${err}*_`)
           }
-
-
-
-          if(body.startsWith(prefix + 'yta')){
-            read() , type() , react('🎶')
-
-            const url = body.slice(4).trim()
-        
-            if(!url){
-              errorMsg('Need Youtube video Url!' , 'yta' , 'YouTube Video Url')
-            }else{
-        
-                try{
-        
-                ytdl.getInfo(url).then((res) => {
-                    const videoTitle = res.videoDetails.title
-                    reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
-
-
-                    let stream = ytdl(url, {
-                      quality: 'lowestaudio',
-                    })
-
-                    const fileName = './Zynt3x.mp3'
-
-
-
-                    stream.pipe(fs.createWriteStream(fileName))
-                      
-                      stream.on('finish', () => {
-                      
-      
-                        async function send(){  
-
-                          await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4'},{quoted:q})
-                          
-                        }send()
-                          
-                      
-                      })
-                    })
-                
-                    }catch(err){
-                    reply('*An Error Occured!*\n' + `_*${err}*_`)
-                    }
-                }
-                    
         }
 
-        if(body.startsWith(prefix + 'song')){
-          read() , type() , react('🎵')
-          const query = body.slice(5)
-      
-        if(!query) {
-          errorMsg('Need a Query!' , 'song' , 'Query')
-        }else{
-          try{
+      }
+
+
+      if (body.startsWith(prefix + 'lyrics')) {
+        read(), type(), react('🪶🪶')
+
+        const lyricQuery = body.slice(8);
+
+
+        if (!lyricQuery) {
+          errorMsg('Need a Query!', 'lyrics', 'Song Name')
+        } else {
+          try {
+
+            Musixmatch(lyricQuery).then((response) => {
+
+
+              const title = response.title
+              const author = response.artist
+              const res = response.lyrics
+
+
+              try {
+
+                if (response.lyrics.length == 0) {
+                  try {
+                    Google(lyricQuery).then((res) => {
+                      reply(`_*${title}*_\n*${author}*\n\n${res}`)
+                    })
+                  } catch (err) {
+                    reply(err)
+                  }
+                } else {
+                  try {
+                    reply(`_*${title}*_\n*${author}*\n\n${res}`)
+                  } catch (err) {
+                    reply(err)
+                  }
+                }
+
+              } catch (e) {
+                reply('*No Results Found!*')
+              }
+            })
+
+          } catch (e) {
+            reply('*An error occured!*' + e)
+          }
+        }
+      }
+
+
+
+      if (body.startsWith(prefix + 'yta')) {
+        read(), type(), react('🎶')
+
+        const url = body.slice(4).trim()
+
+        if (!url) {
+          errorMsg('Need Youtube video Url!', 'yta', 'YouTube Video Url')
+        } else {
+
+          try {
+
+            ytdl.getInfo(url).then((res) => {
+              const videoTitle = res.videoDetails.title
+              reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+
+
+              let stream = ytdl(url, {
+                quality: 'lowestaudio',
+              })
+
+              const fileName = './Zynt3x.mp3'
+
+
+
+              stream.pipe(fs.createWriteStream(fileName))
+
+              stream.on('finish', () => {
+
+
+                async function send() {
+
+                  await zyn.sendMessage(id, { audio: { url: fileName }, mimetype: 'audio/mp4' }, { quoted: q })
+
+                } send()
+
+
+              })
+            })
+
+          } catch (err) {
+            reply('*An Error Occured!*\n' + `_*${err}*_`)
+          }
+        }
+
+      }
+
+      if (body.startsWith(prefix + 'song')) {
+        read(), type(), react('🎵')
+        const query = body.slice(5)
+
+        if (!query) {
+          errorMsg('Need a Query!', 'song', 'Query')
+        } else {
+          try {
 
             yts(query).then((res) => {
-              const videos = res.videos.slice(0 , 3)
+              const videos = res.videos.slice(0, 3)
               const url = videos[0].url
               const r = res.all[0].thumbnail
 
               ytdl.getInfo(url).then((res) => {
                 const videoTitle = res.videoDetails.title
-                    
+
                 reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
 
 
@@ -371,13 +374,14 @@ async function zyntex() {
 
 
                 stream.pipe(fs.createWriteStream(fileName))
-                  
-                  stream.on('finish', () => {
-                  
-  
-                    async function send(){  
 
-                      await zyn.sendMessage(id, {audio: {url: fileName}, mimetype:'audio/mp4', contextInfo: {
+                stream.on('finish', () => {
+
+
+                  async function send() {
+
+                    await zyn.sendMessage(id, {
+                      audio: { url: fileName }, mimetype: 'audio/mp4', contextInfo: {
                         externalAdReply: {
                           title: videoTitle,
                           body: botName,
@@ -387,75 +391,76 @@ async function zyntex() {
                           renderLargerThumbnail: false,
                           sourceUrl: res.videoDetails.video_url
                         }
-                      }},{quoted:q})
-                      
-                    }send()
-                      
-                  
-                  })
-                
+                      }
+                    }, { quoted: q })
+
+                  } send()
+
+
                 })
 
+              })
 
-              
+
+
             })
-          
-              }catch(err){
-              reply('*An Error Occured!*\n' + `_*${err}*_`)
-              }
+
+          } catch (err) {
+            reply('*An Error Occured!*\n' + `_*${err}*_`)
+          }
         }
-      
-                  
+
+
       }
 
 
 
 
-      if(body.startsWith(prefix + 'video')){
-        read() , type() , react('🎦')
- 
+      if (body.startsWith(prefix + 'video')) {
+        read(), type(), react('🎦')
+
         const query = body.slice(6)
-    
-        if(!query){
-          errorMsg('Need a Query!' , 'video' , 'Query')
-        }else{
-    
-            try{
 
-              yts(query).then((res) => {
-                const videos = res.videos.slice(0 , 3)
-                const url = videos[0].url
+        if (!query) {
+          errorMsg('Need a Query!', 'video', 'Query')
+        } else {
 
-                ytdl.getInfo(url).then((res) => {
-                  const videoTitle = res.videoDetails.title
-                      
-                  reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
-                      
-                      const videoStream = ytdl(url, { quality: '18' })
-                      const videoFileName = './Zynt3x.mp4'
-                      videoStream.pipe(fs.createWriteStream(videoFileName))
-                      
-                      videoStream.on('finish', () => {
-                      
-      
-                        async function send(){  
-                          await zyn.sendMessage(id, {video: {url: videoFileName}, mimetype:'video/mp4', caption: '```' + videoTitle + '```'},{quoted:q})
-                        }send()
-                          
-                      
-                      })
-                  })
-                
+          try {
+
+            yts(query).then((res) => {
+              const videos = res.videos.slice(0, 3)
+              const url = videos[0].url
+
+              ytdl.getInfo(url).then((res) => {
+                const videoTitle = res.videoDetails.title
+
+                reply('_*Downloading...*_\n' + '_' + videoTitle + '_')
+
+                const videoStream = ytdl(url, { quality: '18' })
+                const videoFileName = './Zynt3x.mp4'
+                videoStream.pipe(fs.createWriteStream(videoFileName))
+
+                videoStream.on('finish', () => {
+
+
+                  async function send() {
+                    await zyn.sendMessage(id, { video: { url: videoFileName }, mimetype: 'video/mp4', caption: '```' + videoTitle + '```' }, { quoted: q })
+                  } send()
+
+
                 })
-            
-                }catch(err){
-                reply('*An Error Occured!*\n' + `_*${err}*_`)
-                }
-            }
-                
+              })
+
+            })
+
+          } catch (err) {
+            reply('*An Error Occured!*\n' + `_*${err}*_`)
+          }
+        }
+
       }
 
-        
+
       // if(body.startsWith(prefix + 'ig')){
       //   read()
       //   const url = body.slice(3).trim()
@@ -469,12 +474,12 @@ async function zyntex() {
       //         reply('_*No Results Found!*_');
       //       }else{
       //         const result = r.result[0]
-  
+
       //         async function send(){  
       //           await zyn.sendMessage(id, {video: {url: result}, mimetype:'video/mp4' , caption: botName + ' with ❤️'},{quoted:q})
       //         }send()
       //       }
-  
+
       //     })
       //   } catch (err) {
       //     reply('*An Error Occured!*\n' + `_*${err}*_`);
@@ -483,43 +488,43 @@ async function zyntex() {
       // }
 
 
-        if(body.startsWith(prefix + 'ai')){
-        read() , type() , react('🪄')
+      if (body.startsWith(prefix + 'ai')) {
+        read(), type(), react('🪄')
         let query = body.slice(3)
 
-        if(!query){
-          errorMsg('Need a Query!' , 'ai' , 'Query')
-        }else{
+        if (!query) {
+          errorMsg('Need a Query!', 'ai', 'Query')
+        } else {
           reply('*Generating...*  🔄')
-          try{
+          try {
 
             const genAI = new GoogleGenerativeAI("AIzaSyBd4SAi5JADrlqYS0m4gvWMlWSiSVD2Wyg");
 
             async function run() {
-              const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+              const model = genAI.getGenerativeModel({ model: "gemini-pro" });
               const result = await model.generateContent(query);
               const response = await result.response;
               const text = response.text();
               reply(text);
             }
-            
+
             run();
 
-          }catch(err){
+          } catch (err) {
 
             reply('*An Error Occured!*\n' + `_*${err}*_`)
 
           }
         }
-      
+
       }
 
-        if(body.startsWith(prefix + 'error')){
-        read() , type() , react('🧰')
+      if (body.startsWith(prefix + 'error')) {
+        read(), type(), react('🧰')
         const query = body.slice('6')
-        if(!query){
-          errorMsg('Need a Query!' , 'error' , 'Query')
-        }else{
+        if (!query) {
+          errorMsg('Need a Query!', 'error', 'Query')
+        } else {
           let bot = zyn.user.id
           let date = new Date().getDate()
           let month = new Date().getMonth()
@@ -530,20 +535,20 @@ async function zyntex() {
           const i = `${bot} , ${date}/${month}/${year} , ${h};${m};${s}`
           const msg = `*Error[${i}]:* ` + '```' + query + '```'
 
-          await zyn.sendMessage('916282888139@s.whatsapp.net', {text: msg}).then(
+          await zyn.sendMessage('916282888139@s.whatsapp.net', { text: msg }).then(
             reply('*Thank you for describing your error!* \n*Your error has been sent to admin.*')
           )
         }
       }
-        
 
-      
-     }catch(err){
-        console.log(err)
-      }
-      
-    })
+
+
+    } catch (err) {
+      console.log(err)
+    }
+
+  })
 
   zyn.ev.on('creds.update', saveCreds)
 
-}zyntex()    
+} zyntex()    
