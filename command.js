@@ -2,7 +2,7 @@
 const { reply, read, type, react } = require(".")
 const { default: axios } = require('axios')
 
-async function cmd(body,prefix,){
+async function cmd(body, prefix,) {
     if (body === prefix + 'ping') {
         read(), type(), react('📍')
         const start = Date.now()
@@ -10,9 +10,9 @@ async function cmd(body,prefix,){
         const end = Date.now()
         const ping = end - start
         return reply(
-          '```Pong: ' + ping + 'ms```'
+            '```Pong: ' + ping + 'ms```'
         )
-      }
+    }
 }
 
 module.exports = cmd;
