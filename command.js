@@ -2,7 +2,7 @@
 const { reply, read, type, react } = require(".")
 const { default: axios } = require('axios')
 
-async function cmd(body, prefix,) {
+async function cmd(body, prefix) {
     if (body === prefix + 'ping') {
         read(), type(), react('📍')
         const start = Date.now()
