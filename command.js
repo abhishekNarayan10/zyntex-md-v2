@@ -9,7 +9,7 @@ async function cmd(body, prefix,) {
         await axios.get('https://google.com')
         const end = Date.now()
         const ping = end - start
-        return reply(
+        reply(
             '```Pong: ' + ping + 'ms```'
         )
     }
