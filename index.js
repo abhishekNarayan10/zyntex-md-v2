@@ -18,8 +18,6 @@ const yts = require('yt-search')
 const { default: pino } = require('pino')
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { default: axios } = require('axios')
-const cmd = require('./command')
-
 
 let botName = '𝙕𝙮𝙣𝙩3𝙭!'
 const prefix = process.env.BOT_PREFIX || '.'
@@ -170,22 +168,18 @@ async function zyntex() {
         zyn.sendMessage(id, { react: { text: emoji, key: q.key } })
       }
 
-      module.exports = {reply,read,type,errorMsg,react}
+      if (body === prefix + 'ping') {
+        read(), type(), react('📍')
+        const start = Date.now()
+        await axios.get('https://google.com')
+        const end = Date.now()
+        const ping = end - start
+        return reply(
+          '```Pong: ' + ping + 'ms```'
+        )
+      }
 
-      //messaging!
-
-      // if (body === prefix + 'ping') {
-      //   read(), type(), react('📍')
-      //   const start = Date.now()
-      //   await axios.get('https://google.com')
-      //   const end = Date.now()
-      //   const ping = end - start
-      //   return reply(
-      //     '```Pong: ' + ping + 'ms```'
-      //   )
-      // }
-
-      await cmd(body,prefix)
+      // await cmd(body,prefix)
 
 
       if (body === prefix + 'alive') {
