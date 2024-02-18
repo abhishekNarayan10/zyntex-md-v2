@@ -8,8 +8,6 @@ const { default: makeWASocket,
 let { Boom } = require("@hapi/boom")
 const fs = require('fs')
 const ytdl = require('ytdl-core')
-const util = require('util')
-const exec = util.promisify(require('child_process').exec)
 require('dotenv').config()
 const { Google, Musixmatch } = require("@flytri/lyrics-finder")
 const c = require('ansi-colors')
@@ -18,6 +16,8 @@ const yts = require('yt-search')
 const { default: pino } = require('pino')
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { default: axios } = require('axios')
+const fetch = require('node-fetch');
+const getFBInfo = require("@xaviabot/fb-downloader");
 
 let botName = '𝙕𝙮𝙣𝙩3𝙭!'
 const prefix = process.env.BOT_PREFIX || '.'
@@ -247,7 +247,7 @@ async function zyntex() {
 
 
       if (body.startsWith(prefix + 'lyrics')) {
-        read(), type(), react('🪶🪶')
+        read(), type(), react('💎')
 
         const lyricQuery = body.slice(8);
 
@@ -535,6 +535,41 @@ async function zyntex() {
           await zyn.sendMessage('916282888139@s.whatsapp.net', { text: msg }).then(
             reply('*Thank you for describing your error!* \n*Your error has been sent to admin.*')
           )
+        }
+      }
+
+      if(body === prefix + 'technews'){
+        read(),type(),react('📰')
+        async function randomTechNews() {
+          try{
+            const newsArray = await axios.get("https://fantox001-scrappy-api.vercel.app/technews/random")
+            const randomNews = newsArray.data;
+            const news = randomNews.news
+            const thumb = randomNews.thumbnail
+            const msg = `*${news}*`
+            sendImage(thumb , msg)
+          } catch(err){
+            reply('*An Error Occured!*\n' + `_*${err}*_`)
+          }
+        }
+        
+        randomTechNews();
+      }
+
+      if(body.startsWith(prefix + 'fb')){
+        read(),type(),react('☄️')
+        const url = body.slice(3)
+        if(!url){
+          errorMsg('Need a Facebook Url!' , 'fb', 'Url')
+        }else{
+          try {
+            reply('_*Downloading...*_') 
+            getFBInfo(url).then((res) => {
+              sendVideo(res.hd , res.title)
+            })
+          } catch (err) {
+            reply('*An Error Occured!*\n' + `_*${err}*_`)
+          }
         }
       }
 
