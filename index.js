@@ -142,6 +142,14 @@ async function zyntex() {
       const reply = (msg) => {
         zyn.sendMessage(id, { text: msg }, { quoted: q })
       }
+
+      const sendVideo = async(path , cap) => {
+        await zyn.sendMessage(id, {video: {url : path} , caption: cap},{quoted : q})
+      }
+      const sendImage = async(path , cap) => {
+        await zyn.sendMessage(id, {image : {url : path} , caption: cap},{quoted:q})
+      }
+      
       const message = (msg) => {
         zyn.sendMessage(id, { text: msg })
       }
