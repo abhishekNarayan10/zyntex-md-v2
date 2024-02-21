@@ -18,6 +18,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { default: axios } = require('axios')
 const fetch = require('node-fetch');
 const getFBInfo = require("@xaviabot/fb-downloader");
+const randomBgm = require('./assets/Bgm/bgm.js')
 
 let botName = '𝙕𝙮𝙣𝙩3𝙭!'
 const prefix = process.env.BOT_PREFIX || '.'
@@ -144,12 +145,17 @@ async function zyntex() {
       }
 
       const sendVideo = async(path , cap) => {
-        await zyn.sendMessage(id, {video: {url : path} , caption: cap},{quoted : q})
+        await zyn.sendMessage(id, {video: {url : path}  , mimetype: 'video/mp4' , caption: cap},{quoted : q})
       }
       const sendImage = async(path , cap) => {
         await zyn.sendMessage(id, {image : {url : path} , caption: cap},{quoted:q})
       }
-      
+       const sendAudio = async(path) => {
+        await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp4'} ,{quoted:q})
+      }
+      const sendVoice = async(path) => {
+        await zyn.sendMessage(id, {audio: {url: path},mimetype: 'audio/mp4' , ptt:true, waveform:  [100, 0, 100, 0, 100, 0, 100]} , {quoted:q})
+      }
       const message = (msg) => {
         zyn.sendMessage(id, { text: msg })
       }
@@ -193,12 +199,9 @@ async function zyntex() {
       if (body === prefix + 'alive') {
 
         read(), type(), react('🪼')
-
-        const msg = `*Hey! ${userName}* \n*I'm Alive...*`
-
-        await zyn.sendMessage(id, { image: { url: './assets/alive.jpg' }, caption: msg }, { quoted: q })
-
-
+        const msg = `*Hey! ${userName}* \n*I'm Alive...*`;
+        sendVoice(randomBgm)
+        sendImage('./assets/alive.jpg' , msg)
 
       }
 
