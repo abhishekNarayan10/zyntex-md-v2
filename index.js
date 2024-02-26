@@ -26,9 +26,8 @@ module.exports = prefix
 if (process.env.OWNER_NUMBER === undefined || process.env.OWNER_NUMBER === '' || !process.env.OWNER_NUMBER.startsWith('+')) {
   console.log(c.redBright.italic('Plaese set a appropriate value on your .env file for OWNER_NUMBER'))
   return
-} else {
-  var ownerNumber = process.env.OWNER_NUMBER
 }
+var ownerNumber = process.env.OWNER_NUMBER
 
 if (fs.existsSync('./Zynt3x.mp4')) {
   fs.unlinkSync('./Zynt3x.mp4')
@@ -357,7 +356,7 @@ async function zyntex() {
         read(), type(), react('🎵')
         const query = body.slice(5)
 
-        if (!query) {
+        if (!query || body.includes('https://youtu.be')) {
           errorMsg('Need a Query!', 'song', 'Query')
         } else {
           try {
@@ -429,7 +428,7 @@ async function zyntex() {
 
         const query = body.slice(6)
 
-        if (!query) {
+        if (!query || body.includes('https://youtu.be')) {
           errorMsg('Need a Query!', 'video', 'Query')
         } else {
 
@@ -582,6 +581,36 @@ async function zyntex() {
             reply('*An Error Occured!*\n' + `_*${err}*_`)
           }
         }
+      }
+
+      if(body.startsWith(prefix + 'yts')){
+        read(),type(),react('')
+        const query = body.slice(5)
+        if(!query){
+          errorMsg('Need a Query or a Youtube video Url' , 'yts' , 'Query/Url')
+        }else{
+          try{
+            yts(query).then((res)=>{
+              const r = res.videos
+              var msg = `_Search results for '${query}'._\n\n\n *1. ${r[0].title}* \n _Url: ${r[0].url}_ \n\n *2. ${r[1].title}* \n _Url: ${r[1].url}_ \n\n *3. ${r[2].title}* \n _Url: ${r[2].url}_ \n\n *4. ${r[3].title}* \n _Url: ${r[3].url}_ \n\n *5. ${r[4].title}* \n _Url: ${r[4].url}_ \n\n *6. ${r[5].title}* \n _Url: ${r[5].url}_ \n\n *7. ${r[6].title}* \n _Url: ${r[6].url}_ \n\n *8. ${r[7].title}* \n _Url: ${r[7].url}_ \n\n *9. ${r[8].title}* \n _Url: ${r[8].url}_ \n\n *10. ${r[9].title}* \n _Url: ${r[9].url}_ \n\n _For downloading:_ \n     _${prefix}yta <Copied Url> (For audio)._ \n     _${prefix}ytv <Copied Url> (For video)._ \n\n _${prefix}yts <Copied Url> (Gets you more information of the video)._ \n\n _Note: Videos larger than 100MB is not sent._`
+              reply(msg)
+            })
+          }catch(err){
+            reply('*An Error Occured!*\n' + `_*${err}*_`)
+          }
+        }
+      }else if(body.startsWith(prefix + 'yts') && body.includes('https://youtu.be')){
+        read(),type(),react()
+        const videoId = body.slice(22)
+        const id = videoId.trim()
+       try{
+        yts({videoId: id}).then((res)=>{
+          let cap = `•ᴛɪᴛʟᴇ: *${res.title}* \n •ᴜʀʟ: *${res.url}* \n •ᴅᴜʀᴀᴛɪᴏɴ: *${res.timestamp}* \n •ᴠɪᴇᴡꜱ: *${res.views}* \n •ᴀᴜᴛʜᴏʀ: *${res.author}* •ᴜᴘʟᴏᴅᴇᴅ: *${res.ago} \n •ᴜᴘʟᴏᴀᴅᴇᴅ ᴅᴀᴛᴇ: *${res.uploadDate}* \n •ᴅᴇꜱᴄʀɪᴘᴛɪᴏɴ: _${res.description}_ `
+          sendImage(res.thumbnail , cap )
+        })
+       }catch(err){
+        reply('*An Error Occured!*\n' + `_*${err}*_`)
+       }
       }
 
 
