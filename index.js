@@ -68,6 +68,7 @@ async function zyntex() {
     browser: ['Zynt3x - MD', 'safari', '1.0.0']
   })
 
+  zyn.ev.on('creds.update', saveCreds)
 
   zyn.ev.on('connection.update', async (tex) => {
     let { lastDisconnect, connection } = tex
@@ -619,7 +620,5 @@ async function zyntex() {
     }
 
   })
-
-  zyn.ev.on('creds.update', saveCreds)
 
 } zyntex()    
