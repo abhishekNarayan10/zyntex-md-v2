@@ -588,6 +588,18 @@ async function zyntex() {
         const query = body.slice(5)
         if(!query){
           errorMsg('Need a Query or a Youtube video Url' , 'yts' , 'Query/Url')
+        }else if(query.includes('https://youtu.be')){
+          read(),type(),react()
+          const videoId = body.slice(22)
+          const id = videoId.trim()
+          try{
+            yts({videoId: id}).then((res)=>{
+            let cap = `•ᴛɪᴛʟᴇ: *${res.title}* \n •ᴜʀʟ: *${res.url}* \n •ᴅᴜʀᴀᴛɪᴏɴ: *${res.timestamp}* \n •ᴠɪᴇᴡꜱ: *${res.views}* \n •ᴀᴜᴛʜᴏʀ: *${res.author}* •ᴜᴘʟᴏᴅᴇᴅ: *${res.ago} \n •ᴜᴘʟᴏᴀᴅᴇᴅ ᴅᴀᴛᴇ: *${res.uploadDate}* \n •ᴅᴇꜱᴄʀɪᴘᴛɪᴏɴ: _${res.description}_ `
+            sendImage(res.thumbnail , cap )
+          })
+          }catch(err){
+           reply('*An Error Occured!*\n' + `_*${err}*_`)
+          }
         }else{
           try{
             yts(query).then((res)=>{
@@ -599,20 +611,7 @@ async function zyntex() {
             reply('*An Error Occured!*\n' + `_*${err}*_`)
           }
         }
-      }else if(body.startsWith(prefix + 'yts') && body.includes('https://youtu.be')){
-        read(),type(),react()
-        const videoId = body.slice(22)
-        const id = videoId.trim()
-       try{
-        yts({videoId: id}).then((res)=>{
-          let cap = `•ᴛɪᴛʟᴇ: *${res.title}* \n •ᴜʀʟ: *${res.url}* \n •ᴅᴜʀᴀᴛɪᴏɴ: *${res.timestamp}* \n •ᴠɪᴇᴡꜱ: *${res.views}* \n •ᴀᴜᴛʜᴏʀ: *${res.author}* •ᴜᴘʟᴏᴅᴇᴅ: *${res.ago} \n •ᴜᴘʟᴏᴀᴅᴇᴅ ᴅᴀᴛᴇ: *${res.uploadDate}* \n •ᴅᴇꜱᴄʀɪᴘᴛɪᴏɴ: _${res.description}_ `
-          sendImage(res.thumbnail , cap )
-        })
-       }catch(err){
-        reply('*An Error Occured!*\n' + `_*${err}*_`)
-       }
       }
-
 
 
     } catch (err) {
