@@ -594,7 +594,7 @@ async function zyntex() {
           const videoId = body.slice(5)
           const id = videoId.split('https://youtube.com/watch?v=')
           try{
-            yts({videoId: id[1}).then((res)=>{
+            yts({videoId: id[1]}).then((res)=>{
             let cap = `•ᴛɪᴛʟᴇ: *${res.title}* \n •ᴜʀʟ: *${res.url}* \n •ᴅᴜʀᴀᴛɪᴏɴ: *${res.timestamp}* \n •ᴠɪᴇᴡꜱ: *${res.views}* \n •ᴀᴜᴛʜᴏʀ: *${res.author}* •ᴜᴘʟᴏᴅᴇᴅ: *${res.ago} \n •ᴜᴘʟᴏᴀᴅᴇᴅ ᴅᴀᴛᴇ: *${res.uploadDate}* \n •ᴅᴇꜱᴄʀɪᴘᴛɪᴏɴ: _${res.description}_ `
             sendImage(res.thumbnail , cap )
           })
