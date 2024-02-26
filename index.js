@@ -589,9 +589,7 @@ async function zyntex() {
         const query = body.slice(5)
         if(!query){
           errorMsg('Need a Query or a Youtube video Url' , 'yts' , 'Query/Url')
-        }
-        
-        if(!query.includes('https://youtube.com/watch?v=')){
+        }else if(!query.includes('https://youtube.com/watch?v=')){
           try{
             yts(query).then((res)=>{
               const r = res.videos
