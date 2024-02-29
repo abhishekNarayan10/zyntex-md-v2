@@ -507,8 +507,9 @@ async function zyntex() {
           reply('*Generating...*  🔄')
           try {
 
-            const genAI = new GoogleGenerativeAI("AIzaSyBd4SAi5JADrlqYS0m4gvWMlWSiSVD2Wyg");
+            const genAI = new GoogleGenerativeAI("AIzaSyCm83CrC5XbUijsZPb_bfxuraKxNDYnJrA");
 
+    
             async function run() {
               const model = genAI.getGenerativeModel({ model: "gemini-pro" });
               const result = await model.generateContent(query);
