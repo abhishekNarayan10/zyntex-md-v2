@@ -19,6 +19,7 @@ const { default: axios } = require('axios')
 const fetch = require('node-fetch');
 const getFBInfo = require("@xaviabot/fb-downloader");
 const randomBgm = require('./assets/Bgm/bgm.js')
+const randomAliveImages = require('./assets/Alive Images/alive_img.js')
 const mumaker = require('mumaker')
 
 let botName = '𝙕𝙮𝙣𝙩3𝙭!'
@@ -202,7 +203,7 @@ async function zyntex() {
         read(), type(), react('🪼')
         const msg = `*Hey! ${userName}* \n*I'm Alive...*`;
         sendVoice(randomBgm)
-        sendImage('./assets/alive.jpg' , msg)
+        sendImage(randomAliveImages , msg)
 
       }
 
