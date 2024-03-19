@@ -156,7 +156,7 @@ async function zyntex() {
         await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp4'} ,{quoted:q})
       }
       const sendVoice = async(path) => {
-        await zyn.sendMessage(id, {audio: {url: path},mimetype: 'audio/mp4' , ptt:true, waveform:  [100, 0, 100, 0, 100, 0, 100]} , {quoted:q})
+        await zyn.sendMessage(id, {audio: {url: path},mimetype: 'audio/mp4' , ptt:true, waveform: [0 , 100 , 0 , 100 , 0]} , {quoted:q})
       }
       const message = (msg) => {
         zyn.sendMessage(id, { text: msg })
