@@ -639,7 +639,7 @@ async function zyntex() {
 
       if(body ===  prefix + "menu"){
         read(), type() , react("")
-        sendImage("https://i.ibb.co/CzfPYJV/colton-orr-2020-4.jpg" , 
+        reply(
         ```
         ━━【ＭＥＮＵ】━━
         \n\n\n▸ *${prefix}alive* _(To check the bot is working or not)_
