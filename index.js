@@ -637,9 +637,9 @@ async function zyntex() {
 
       }
 
-      switch(body){
-        case prefix + "menu" :
-        case prefix + "list" : sendImage("https://i.ibb.co/CzfPYJV/colton-orr-2020-4.jpg" , 
+      if(body ===  prefix + "menu" || body === prefix + "list"){
+        read(), type() , react("")
+        sendImage("https://i.ibb.co/CzfPYJV/colton-orr-2020-4.jpg" , 
         ```
         ━━【ＭＥＮＵ】━━
         \n\n\n▸ *${prefix}alive* _(To check the bot is working or not)_
@@ -658,7 +658,7 @@ async function zyntex() {
         \n\n▸ *${prefix}error* _(Describe errors to developer while using this bot)_
         
         ```
-        )
+      )
       }
 
 
