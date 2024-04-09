@@ -637,7 +637,7 @@ async function zyntex() {
 
       }
 
-      if(body ===  prefix + "menu" || body === prefix + "list"){
+      if(body ===  prefix + "menu"){
         read(), type() , react("")
         sendImage("https://i.ibb.co/CzfPYJV/colton-orr-2020-4.jpg" , 
         ```
