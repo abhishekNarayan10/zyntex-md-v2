@@ -637,6 +637,30 @@ async function zyntex() {
 
       }
 
+      switch(body){
+        case prefix + "menu" :
+        case prefix + "list" : sendImage("https://i.ibb.co/CzfPYJV/colton-orr-2020-4.jpg" , 
+        ```
+        ━━【ＭＥＮＵ】━━
+        \n\n\n▸ *${prefix}alive* _(To check the bot is working or not)_
+        \n\n▸ *${prefix}menu/list* _(For full commands and uses)_
+        \n\n▸ *${prefix}quote* _(Generates a random quote with author)_
+        \n\n▸ *${prefix}ping* _(Pings the server)_
+        \n\n▸ *${prefix}song* _(Downloads song from youtube by query)_
+        \n\n▸ *${prefix}video* _(Downloads video from youtube by query)_
+        \n\n▸ *${prefix}yta* _(Downloads song from youtube by link)_
+        \n\n▸ *${prefix}ytv* _(Downloads video from youtube by link)_
+        \n\n▸ *${prefix}yts* _(Searches youtube by query or link)_
+        \n\n▸ *${prefix}lyrics* _(Gets you lyrics of popular songs)_
+        \n\n▸ *${prefix}fb* _(Downloads video from facebook)_
+        \n\n▸ *${prefix}ai* _(Helps you to chat with google gemini ai)_
+        \n\n▸ *${prefix}technews* _(Gets you a random tech news)_
+        \n\n▸ *${prefix}error* _(Describe errors to developer while using this bot)_
+        
+        ```
+        )
+      }
+
 
     } catch (err) {
       console.log(err)
