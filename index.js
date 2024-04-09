@@ -640,7 +640,7 @@ async function zyntex() {
       if(body ===  prefix + "menu"){
         read(), type() , react("")
         reply(
-        ```
+        `
         ━━【ＭＥＮＵ】━━
         \n\n\n▸ *${prefix}alive* _(To check the bot is working or not)_
         \n\n▸ *${prefix}menu/list* _(For full commands and uses)_
@@ -657,7 +657,7 @@ async function zyntex() {
         \n\n▸ *${prefix}technews* _(Gets you a random tech news)_
         \n\n▸ *${prefix}error* _(Describe errors to developer while using this bot)_
         
-        ```
+        `
       )
       }
 
