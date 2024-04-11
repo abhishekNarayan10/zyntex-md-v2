@@ -656,6 +656,7 @@ async function zyntex() {
         \n\n▸ *${prefix}ai* _(Helps you to chat with google gemini ai)_
         \n\n▸ *${prefix}technews* _(Gets you a random tech news)_
         \n\n▸ *${prefix}error* _(Describe errors to developer while using this bot)_
+        \n\n▸ *${prefix}textpro* _(Adds stylish texts to stylish backgrounds)_
         
         `
       )
