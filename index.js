@@ -579,7 +579,7 @@ async function zyntex() {
           try {
             reply('_*Downloading...*_') 
             getFBInfo(url).then((res) => {
-              sendVideo(res.hd , res.title)
+              sendVideo(res.hd , botName)
             })
           } catch (err) {
             reply('*An Error Occured!*\n' + `_*${err}*_`)
