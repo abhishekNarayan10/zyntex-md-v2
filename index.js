@@ -637,12 +637,12 @@ async function zyntex() {
 
       }
 
-      if(body ===  prefix + "menu"){
-        read(), type() , react("")
-        reply(
+      if(body ===  prefix + "menu" || body === prefix + "list"){
+        read(), type() , react("📍")
+        sendImage("https://i.ibb.co/CzfPYJV/colton-orr-2020-4.jpg" , 
         `
         ━━【ＭＥＮＵ】━━
-        \n\n\n▸ *${prefix}alive* _(To check the bot is working or not)_
+        \n\n\n▸ *${prefix}alive* _(To check wheather the bot is working or not)_
         \n\n▸ *${prefix}menu/list* _(For full commands and uses)_
         \n\n▸ *${prefix}quote* _(Generates a random quote with author)_
         \n\n▸ *${prefix}ping* _(Pings the server)_
