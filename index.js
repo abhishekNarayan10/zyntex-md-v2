@@ -21,6 +21,7 @@ const getFBInfo = require("@xaviabot/fb-downloader");
 const randomBgm = require('./assets/Bgm/bgm.js')
 const randomAliveImages = require('./assets/Alive Images/alive_img.js')
 const mumaker = require('mumaker')
+const { getLyrics , getSong } = require('genius-lyrics-api')
 
 let botName = '𝙕𝙮𝙣𝙩3𝙭!'
 const prefix = process.env.BOT_PREFIX || '.'
@@ -270,35 +271,18 @@ async function zyntex() {
         } else {
           try {
 
-            Musixmatch(lyricQuery).then((response) => {
+            const options = {
+              apiKey: 'zPOjnDqoYiPNg27_eHZRQk5JVeXJp6X1Ojr1wg8aQ1uu2Ak3hYD9rHqCt4vuZz-a',
+              title: lyricQuery,
+              artist: '.',
+              optimizeQuery: true
+            }
+            getSong(options).then((res) => {
+              const t = res.title
+              const a = res.albumArt
+              const l = res.lyrics
 
-
-              const title = response.title
-              const author = response.artist
-              const res = response.lyrics
-
-
-              try {
-
-                if (response.lyrics.length == 0) {
-                  try {
-                    Google(lyricQuery).then((res) => {
-                      reply(`_*${title}*_\n*${author}*\n\n${res}`)
-                    })
-                  } catch (err) {
-                    reply(err)
-                  }
-                } else {
-                  try {
-                    reply(`_*${title}*_\n*${author}*\n\n${res}`)
-                  } catch (err) {
-                    reply(err)
-                  }
-                }
-
-              } catch (e) {
-                reply('*No Results Found!*')
-              }
+              sendImage(a, `*${t}* \n\n ${l}`)
             })
 
           } catch (e) {
