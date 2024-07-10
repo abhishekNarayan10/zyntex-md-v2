@@ -641,9 +641,32 @@ async function zyntex() {
         \n\n▸ *${prefix}technews* _(Gets you a random tech news)_
         \n\n▸ *${prefix}error* _(Describe errors to developer while using this bot)_
         \n\n▸ *${prefix}textpro* _(Adds stylish texts to stylish backgrounds)_
+        \n\n▸ *${prefix}textpro* _(Adds stylish texts to stylish backgrounds)_
         
         `
       )
+      }
+
+      if(body.startsWith(prefix + 'weather')){
+        const q = body.slice(9).trim()
+        if(!q){
+          errorMsg("Need a Query!", "weather", "Query");
+        }else{
+          const u = 'https://api.openweathermap.org/data/2.5/weather?units=metric&q='
+          const api = 'cd04ae4cec5f1b747c75eae5b3103e9f'
+          const url = u + q + "&appid=" + api;
+          const response = await fetch(url);
+          if(response.status === 404){
+            reply("_*Can't find this location*_")
+          }else{
+            const data = await response.json();
+            const w = data.weather[0].main
+            let r = data.weather[0].icon
+            const icon = `https://openweathermap.org/img/wn/` + `${r}` + `@2x.png`
+            sendImage(icon, `_*Results For${data.name},${data.sys.country}* \n\n _*Temperature: ${data.main.temp}°C* \n *Humidity: ${data.main.humidity}* \n *Pressure: ${data.main.pressure}Pa* \n *Wind Speed: ${data.wind.speed}km/h*`)
+          } 
+        }
+
       }
 
 
