@@ -1,0 +1,1 @@
+CMD ["node", "index.js"]
