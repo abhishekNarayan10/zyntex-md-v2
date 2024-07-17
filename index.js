@@ -29,13 +29,9 @@ const yts = require("yt-search");
 const { default: pino } = require("pino");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { default: axios } = require("axios");
-const fg = require('api-dylux');
-const {Sticker , createSticker} = require('wa-sticker-formatter');
 const randomBgm = require('./assets/Bgm/bgm.js');
 const randomAliveImages = require('./assets/Alive Images/alive_img.js')
 const mumaker = require('mumaker')
-const { getJson } = require("serpapi");
-const { decode } = require("querystring");
 const CryptoJS = require("crypto-js");
  
 /////////////////////////b
