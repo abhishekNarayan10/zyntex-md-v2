@@ -87,7 +87,6 @@ if(process.env.SESSION_ID === undefined){
   console.log(c.red("Session ID is not valid!"))
 }
 const sessionFile = "./session";
-try{
   const data = process.env.SESSION_ID
   const ciphertext = data.slice(9)
   var bytes  = CryptoJS.AES.decrypt(ciphertext, 'Zynt3x!');
@@ -95,7 +94,6 @@ try{
   const t = JSON.stringify(decryptedData)
   let file = fs.createWriteStream('./session/creds.json')
   file.write(t)
-}catch(err){console.log(err)}
 
 // fs.writeFile('./session/creds.json', t, function (err) {
 //   if (err) throw err;
