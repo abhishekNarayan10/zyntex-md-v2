@@ -85,12 +85,19 @@ figlet.text(
     );
   }
 );
+if(process.env.SESSION_ID === undefined){
+  console.log(c.red("No session ID found in .env file"))
+}else if (!process.env.SESSION_ID.startsWith('Zynt3x:::')){
+  console.log(c.red("Session ID is not valid!"))
+}
 const sessionFile = "./session";
-const data = process.env.SESSION_ID
-const ciphertext = data.slice(9)
-var bytes  = CryptoJS.AES.decrypt(ciphertext, 'Zynt3x!');
-var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-const t = JSON.stringify(decryptedData)
+try{
+  const data = process.env.SESSION_ID
+  const ciphertext = data.slice(9)
+  var bytes  = CryptoJS.AES.decrypt(ciphertext, 'Zynt3x!');
+  var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  const t = JSON.stringify(decryptedData)
+}catch(err){console.log(err)}
 
 let file = fs.createWriteStream('./session/creds.json')
 file.write(t)
