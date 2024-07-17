@@ -93,10 +93,9 @@ try{
   var bytes  = CryptoJS.AES.decrypt(ciphertext, 'Zynt3x!');
   var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   const t = JSON.stringify(decryptedData)
+  let file = fs.createWriteStream('./session/creds.json')
+  file.write(t)
 }catch(err){console.log(err)}
-
-let file = fs.createWriteStream('./session/creds.json')
-file.write(t)
 
 // fs.writeFile('./session/creds.json', t, function (err) {
 //   if (err) throw err;
