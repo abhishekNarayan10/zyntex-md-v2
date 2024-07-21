@@ -33,8 +33,11 @@ const randomBgm = require('./assets/Bgm/bgm.js');
 const randomAliveImages = require('./assets/Alive Images/alive_img.js')
 const mumaker = require('mumaker')
 const CryptoJS = require("crypto-js");
+const {newsScrape} = require('./scrape/newsScrape.js')
+const {footballNewsScrape} = require('./scrape/footballNewsScrape.js')
+
  
-/////////////////////////b
+/////////////////////////
 
 
 
@@ -737,6 +740,7 @@ async function zyntex() {
 
 
       if(body.startsWith(prefix + 'weather')){
+        react('❄️') , read() , type()
         const q = body.slice(9).trim()
         if(!q){
           errorMsg("Need a Query!", "weather", "Query");
@@ -757,6 +761,17 @@ async function zyntex() {
         }
 
       }
+
+      if(body.startsWith(prefix + 'news')){
+      react('📰') , type() , read()
+      newsScrape().then((res) => {
+         sendImage(res.thumbnail , `*${res.headNews}* \n__________________\n1) ${res[1]}\n2) ${res[2]}\n3) ${res[3]}\n4) ${res[4]}\n5) ${res[5]}`)
+      })}
+      if(body.startsWith(prefix + 'footballnews')){
+      react('⚽') , type() , read()
+      footballNewsScrape().then((res) => {
+         sendImage(res.thumbnail , `*${res.headNews}* \n__________________\n1) ${res[0]}\n2) ${res[1]}\n3) ${res[2]}\n4) ${res[3]}\n5) ${res[4]}`)
+      })}
 
 
     } catch (err) {
