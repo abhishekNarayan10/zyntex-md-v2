@@ -765,12 +765,13 @@ async function zyntex() {
       if(body.startsWith(prefix + 'news')){
       react('📰') , type() , read()
       newsScrape().then((res) => {
-         sendImage(res.thumbnail , `*${res.headNews}* \n__________________\n1) ${res[1]}\n2) ${res[2]}\n3) ${res[3]}\n4) ${res[4]}\n5) ${res[5]}`)
+         sendImage(res[0].thumbnail , `*${res[0].headNews}* \n__________________\n1) ${res[2].title}\n2) ${res[3].title}\n3) ${res[4].title}\n4) ${res[5].title}\n5) ${res[6].title}`)
       })}
+      
       if(body.startsWith(prefix + 'footballnews')){
       react('⚽') , type() , read()
       footballNewsScrape().then((res) => {
-         sendImage(res.thumbnail , `*${res.headNews}* \n__________________\n1) ${res[0]}\n2) ${res[1]}\n3) ${res[2]}\n4) ${res[3]}\n5) ${res[4]}`)
+         sendImage(res[0].thumbnail , `*${res[0].headNews}* \n__________________\n1) ${res[1].title}\n2) ${res[2].title}\n3) ${res[3].title}\n4) ${res[4].title}\n5) ${res[5].title}`)
       })}
 
 
