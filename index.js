@@ -35,6 +35,8 @@ const mumaker = require('mumaker')
 const CryptoJS = require("crypto-js");
 const {newsScrape} = require('./scrape/newsScrape.js')
 const {footballNewsScrape} = require('./scrape/footballNewsScrape.js')
+const {instadl} = require('./scrape/instadl')
+const {lyrics} = require('./scrape/lyrics.js')
 
  
 /////////////////////////
@@ -344,18 +346,8 @@ async function zyntex() {
           errorMsg("Need a Query!", "lyrics", "Song Name");
         } else {
           try {
-            const options = {
-              apiKey: 'zPOjnDqoYiPNg27_eHZRQk5JVeXJp6X1Ojr1wg8aQ1uu2Ak3hYD9rHqCt4vuZz-a',
-              title: lyricQuery,
-              artist: '.',
-              optimizeQuery: true
-            }
-            getSong(options).then((res) => {
-              const t = res.title
-              const a = res.albumArt
-              const l = res.lyrics
-
-              sendImage(a, `*${t}* \n\n ${l}`)
+            lyrics(lyricQuery).then((res) => {
+              sendImage(res[0].thumbnail , `*${res[0].author}-${res[0].title}*\n\n${res[0].lyrics}`)
             })
           } catch (e) {
             reply("*An error occured!*" + e);
@@ -502,32 +494,6 @@ async function zyntex() {
         }
       }
 
-      // if(body.startsWith(prefix + 'ig')){
-      //   read()
-      //   const url = body.slice(3).trim()
-      //   if(!url) throw errorMsg('Need a Instagram Link!' , 'ig' , 'Instagram Link')
-
-      //   try {
-      //     var res = await fetch(` ${url}`);
-      //     let rr = await res.json().then((r) => {
-
-      //       if (!r || !r.result || r.result.length === 0) {
-      //         reply('_*No Results Found!*_');
-      //       }else{
-      //         const result = r.result[0]
-
-      //         async function send(){
-      //           await zyn.sendMessage(id, {video: {url: result}, mimetype:'video/mp4' , caption: botName + ' with ❤️'},{quoted:q})
-      //         }send()
-      //       }
-
-      //     })
-      //   } catch (err) {
-      //     reply('*An Error Occured!*\n' + `_*${err}*_`);
-      //   }
-
-      // }
-
       if (body.startsWith(prefix + "ai")) {
         read(), type(), react("🪄");
         let query = body.slice(3);
@@ -667,50 +633,6 @@ async function zyntex() {
 
       }
 
-      if(body.startsWith(prefix + "hrv")) {
-        read(), type(), react("🎦");
-
-        const query = body.slice(4);
-
-        if (!query || body.includes('https://youtube.com/watch?v=')) {
-          errorMsg("Need a Query!", "video", "Query");
-        } else {
-          try {
-            yts(query).then((res) => {
-              const videos = res.videos.slice(0, 3);
-              const url = videos[0].url;
-
-              ytdl.getInfo(url).then((res) => {
-                const videoTitle = res.videoDetails.title;
-
-                reply("_*Downloading...*_\n" + "_" + videoTitle + "_");
-
-                const videoStream = ytdl(url, { quality: "highest" });
-                const videoFileName = "./Zynt3x.mp4";
-                videoStream.pipe(fs.createWriteStream(videoFileName));
-
-                videoStream.on("finish", () => {
-                  async function send() {
-                    await zyn.sendMessage(
-                      id,
-                      {
-                        video: { url: videoFileName },
-                        mimetype: "video/mp4",
-                        caption: "```" + videoTitle + "```",
-                      },
-                      { quoted: q }
-                    );
-                  }
-                  send();
-                });
-              });
-            });
-          } catch (err) {
-            reply("*An Error Occured!*\n" + `_*${err}*_`);
-          }
-        }
-      }
-
 
 
       if(body ===  prefix + "menu" || body === prefix + "list"){
@@ -765,14 +687,30 @@ async function zyntex() {
       if(body.startsWith(prefix + 'news')){
       react('📰') , type() , read()
       newsScrape().then((res) => {
-         sendImage(res[0].thumbnail , `*${res[0].headNews}* \n__________________\n1) ${res[2].title}\n2) ${res[3].title}\n3) ${res[4].title}\n4) ${res[5].title}\n5) ${res[6].title}`)
+        sendImage(res[0].thumbnail , `*${res[0].headNews}* \n__________________\n\n1) ${res[2].title}\n2) ${res[3].title}\n3) ${res[4].title}\n4) ${res[5].title}\n5) ${res[6].title}`)
       })}
-      
+
       if(body.startsWith(prefix + 'footballnews')){
       react('⚽') , type() , read()
       footballNewsScrape().then((res) => {
-         sendImage(res[0].thumbnail , `*${res[0].headNews}* \n__________________\n1) ${res[1].title}\n2) ${res[2].title}\n3) ${res[3].title}\n4) ${res[4].title}\n5) ${res[5].title}`)
+         sendImage(res[0].thumbnail , `*${res[0].headNews}* \n__________________\n\n1) ${res[2].title}\n2) ${res[3].title}\n3) ${res[4].title}\n4) ${res[5].title}\n5) ${res[6].title}`)
       })}
+      if(body === prefix + 'ig'){
+        react('❄️') , read() , type()
+        const url = body.slice(3).trim()
+        if(!url || !body.includes('www.instagram.com' || 'reel')){
+          errorMsg("Need a Instagram Reel Url!", "ig", "url")
+        }else{
+          try {
+            instadl(url).then((res)=>{
+              sendVideo(res[0].download_url , `Made with ❤️ by ${botName}`)
+            })
+            
+          } catch (e) {
+            reply("*An error occured!*" + e)
+          }
+        }
+      }
 
 
     } catch (err) {
