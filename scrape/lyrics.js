@@ -41,7 +41,6 @@ async function lyrics(q) {
                 'author' : author,
                 'thumbnail' : lyrics_thumb,
                 'lyrics' : n2
-
             }
         ]
 

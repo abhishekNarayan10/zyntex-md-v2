@@ -340,7 +340,7 @@ async function zyntex() {
       if (body.startsWith(prefix + "lyrics")) {
         read(), type(), react('💎');
 
-        const lyricQuery = body.slice(8);
+        const lyricQuery = body.slice(7).trim()
 
         if (!lyricQuery) {
           errorMsg("Need a Query!", "lyrics", "Song Name");
@@ -635,30 +635,30 @@ async function zyntex() {
 
 
 
-      if(body ===  prefix + "menu" || body === prefix + "list"){
-        read(), type() , react("📍")
-        sendImage("https://i.ibb.co/CzfPYJV/colton-orr-2020-4.jpg" , 
-        `
-        ━━【ＭＥＮＵ】━━
-        \n\n\n▸ *${prefix}alive* _(To check wheather the bot is working or not)_
-        \n\n▸ *${prefix}menu/list* _(For full commands and uses)_
-        \n\n▸ *${prefix}quote* _(Generates a random quote with author)_
-        \n\n▸ *${prefix}ping* _(Pings the server)_
-        \n\n▸ *${prefix}song* _(Downloads song from youtube by query)_
-        \n\n▸ *${prefix}video* _(Downloads video from youtube by query)_
-        \n\n▸ *${prefix}yta* _(Downloads song from youtube by link)_
-        \n\n▸ *${prefix}ytv* _(Downloads video from youtube by link)_
-        \n\n▸ *${prefix}yts* _(Searches youtube by query or link)_
-        \n\n▸ *${prefix}lyrics* _(Gets you lyrics of popular songs)_
-        \n\n▸ *${prefix}fb* _(Downloads video from facebook)_
-        \n\n▸ *${prefix}ai* _(Helps you to chat with google gemini ai)_
-        \n\n▸ *${prefix}technews* _(Gets you a random tech news)_
-        \n\n▸ *${prefix}error* _(Describe errors to developer while using this bot)_
-        \n\n▸ *${prefix}textpro* _(Adds stylish texts to stylish backgrounds)_
-        \n\n▸ *${prefix}weather* _(Gets Weather Informations)_
-        `
-      )
-      }
+      // if(body ===  prefix + "menu" || body === prefix + "list"){
+      //   read(), type() , react("📍")
+      //   sendImage("https://i.ibb.co/CzfPYJV/colton-orr-2020-4.jpg" , 
+      //   `
+      //   ━━【ＭＥＮＵ】━━
+      //   \n\n\n▸ *${prefix}alive* _(To check wheather the bot is working or not)_
+      //   \n\n▸ *${prefix}menu/list* _(For full commands and uses)_
+      //   \n\n▸ *${prefix}quote* _(Generates a random quote with author)_
+      //   \n\n▸ *${prefix}ping* _(Pings the server)_
+      //   \n\n▸ *${prefix}song* _(Downloads song from youtube by query)_
+      //   \n\n▸ *${prefix}video* _(Downloads video from youtube by query)_
+      //   \n\n▸ *${prefix}yta* _(Downloads song from youtube by link)_
+      //   \n\n▸ *${prefix}ytv* _(Downloads video from youtube by link)_
+      //   \n\n▸ *${prefix}yts* _(Searches youtube by query or link)_
+      //   \n\n▸ *${prefix}lyrics* _(Gets you lyrics of popular songs)_
+      //   \n\n▸ *${prefix}fb* _(Downloads video from facebook)_
+      //   \n\n▸ *${prefix}ai* _(Helps you to chat with google gemini ai)_
+      //   \n\n▸ *${prefix}technews* _(Gets you a random tech news)_
+      //   \n\n▸ *${prefix}error* _(Describe errors to developer while using this bot)_
+      //   \n\n▸ *${prefix}textpro* _(Adds stylish texts to stylish backgrounds)_
+      //   \n\n▸ *${prefix}weather* _(Gets Weather Informations)_
+      //   `
+      // )
+      // }
 
 
       if(body.startsWith(prefix + 'weather')){
