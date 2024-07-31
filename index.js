@@ -684,18 +684,18 @@ async function zyntex() {
 
       }
 
-      if(body.startsWith(prefix + 'news')){
+      if(body === prefix + 'news'){
       react('📰') , type() , read()
       newsScrape().then((res) => {
         sendImage(res[0].thumbnail , `*${res[0].headNews}* \n__________________\n\n1) ${res[2].title}\n2) ${res[3].title}\n3) ${res[4].title}\n4) ${res[5].title}\n5) ${res[6].title}`)
       })}
 
-      if(body.startsWith(prefix + 'footballnews')){
+      if(body === prefix + 'footballnews'){
       react('⚽') , type() , read()
       footballNewsScrape().then((res) => {
          sendImage(res[0].thumbnail , `*${res[0].headNews}* \n__________________\n\n1) ${res[2].title}\n2) ${res[3].title}\n3) ${res[4].title}\n4) ${res[5].title}\n5) ${res[6].title}`)
       })}
-      if(body === prefix + 'ig'){
+      if(body.startsWith(prefix + 'ig')){
         react('❄️') , read() , type()
         const url = body.slice(3).trim()
         if(!url || !body.includes('www.instagram.com' || 'reel')){
