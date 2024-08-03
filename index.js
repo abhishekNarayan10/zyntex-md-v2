@@ -708,12 +708,11 @@ async function zyntex() {
               })
             }else{
               instadl(url).then((res)=>{
-                let length = res.length
-                console.log(length)
-                for(let i = length-1; i > length; i++){
-                  console.log(i)
-                  sendImage(res[i].download_url , `Made with ❤️ by ${botName}` )
-                }
+                res.forEach(element => {
+                  console.log(element)
+                });
+                  // console.log(i)
+                  // sendImage(res[i].download_url , `Made with ❤️ by ${botName}` )
               })
             }
           } catch (e) {
