@@ -698,12 +698,19 @@ async function zyntex() {
       if(body.startsWith(prefix + 'ig')){
         react('❄️') , read() , type()
         const url = body.slice(3).trim()
-        if(!url || !body.includes('www.instagram.com' || 'reel')){
-          errorMsg("Need a Instagram Reel Url!", "ig", "url")
+        if(!url || !body.includes('www.instagram.com')){
+          errorMsg("Need a Instagram Url!", "ig", "url")
         }else{
           try {
             instadl(url).then((res)=>{
-              sendVideo(res[0].download_url , `Made with ❤️ by ${botName}`)
+              if(url.startsWith('https://instagram.com/reel/')){
+                sendVideo(res[0].download_url , `Made with ❤️ by ${botName}`)
+              }else{
+                const length = res.length
+                for(let i = 0; i>length; i++){
+                  sendImage(res[0].download_url , `Made with ❤️ by ${botName}` )
+                }
+              }
             })
             
           } catch (e) {
