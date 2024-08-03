@@ -702,7 +702,7 @@ async function zyntex() {
           errorMsg("Need a Instagram Url!", "ig", "url")
         }else{
           try {
-            if(url.startsWith('https://instagram.com/reel/')){
+            if(url.includes('reel')){
               instadl(url).then((res)=>{
                 sendVideo(res[0].download_url , `Made with ❤️ by ${botName}`)
               })
