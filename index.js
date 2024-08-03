@@ -709,6 +709,7 @@ async function zyntex() {
             }else{
               instadl(url).then((res)=>{
                 const length = res.length
+                console.log(length)
                 for(let i = 0; i>length; i++){
                   sendImage(res[i].download_url , `Made with ❤️ by ${botName}` )
                 }
