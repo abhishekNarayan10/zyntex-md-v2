@@ -708,7 +708,7 @@ async function zyntex() {
               }else{
                 const length = res.length
                 for(let i = 0; i>length; i++){
-                  sendImage(res[0].download_url , `Made with ❤️ by ${botName}` )
+                  sendImage(res[i].download_url , `Made with ❤️ by ${botName}` )
                 }
               }
             })
