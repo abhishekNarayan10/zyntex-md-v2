@@ -709,7 +709,7 @@ async function zyntex() {
             }else{
               instadl(url).then((res)=>{
                 res.forEach(element => {
-                  console.log(element)
+                  sendImage(element.download_url , `Made with ❤️ by ${botName}` )
                 });
                   // console.log(i)
                   // sendImage(res[i].download_url , `Made with ❤️ by ${botName}` )
