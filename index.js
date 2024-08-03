@@ -702,17 +702,18 @@ async function zyntex() {
           errorMsg("Need a Instagram Url!", "ig", "url")
         }else{
           try {
-            instadl(url).then((res)=>{
-              if(url.startsWith('https://instagram.com/reel/')){
+            if(url.startsWith('https://instagram.com/reel/')){
+              instadl(url).then((res)=>{
                 sendVideo(res[0].download_url , `Made with ❤️ by ${botName}`)
-              }else{
+              })
+            }else{
+              instadl(url).then((res)=>{
                 const length = res.length
                 for(let i = 0; i>length; i++){
                   sendImage(res[i].download_url , `Made with ❤️ by ${botName}` )
                 }
-              }
-            })
-            
+              })
+            }
           } catch (e) {
             reply("*An error occured!*" + e)
           }
