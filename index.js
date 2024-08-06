@@ -22,7 +22,6 @@ let { Boom } = require("@hapi/boom");
 const fs = require("fs");
 const ytdl = require('@distube/ytdl-core');
 require("dotenv").config();
-const { Google, Musixmatch } = require("@flytri/lyrics-finder");
 const c = require("ansi-colors");
 var figlet = require("figlet");
 const yts = require("yt-search");
@@ -704,12 +703,12 @@ async function zyntex() {
           try {
             if(url.includes('reel')){
               instadl(url).then((res)=>{
-                sendVideo(res[0].download_url , `Made with ❤️ by ${botName}`)
+                sendVideo(res[0].download_url , `> Made with ❤️ by ${botName}`)
               })
             }else{
               instadl(url).then((res)=>{
                 res.forEach(element => {
-                  sendImage(element.download_url , `Made with ❤️ by ${botName}` )
+                  sendImage(element.download_url , `> Made with ❤️ by ${botName}` )
                 });
                   // console.log(i)
                   // sendImage(res[i].download_url , `Made with ❤️ by ${botName}` )
