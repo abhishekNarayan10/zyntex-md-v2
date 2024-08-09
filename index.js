@@ -346,6 +346,7 @@ async function zyntex() {
         } else {
           try {
             lyrics(lyricQuery).then((res) => {
+              console.log(res)
               sendImage(res.thumbnail , `*${res.author}-${res.title}*\n\n${res.lyrics} \n\n >${botName}`)
             })
           } catch (e) {
