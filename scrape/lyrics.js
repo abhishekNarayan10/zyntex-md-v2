@@ -44,6 +44,7 @@ async function lyrics(q) {
             }
         ]
 
+        console.log(res)
         return res
         
     } catch (err) {
