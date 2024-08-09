@@ -338,20 +338,20 @@ async function zyntex() {
 
       if (body.startsWith(prefix + "lyrics")) {
         read(), type(), react('💎');
+        lyrics('faded')
+        // const lyricQuery = body.slice(8)
 
-        const lyricQuery = body.slice(8)
-
-        if (!lyricQuery) {
-          errorMsg("Need a Query!", "lyrics", "Song Name");
-        } else {
-          try {
-            lyrics(lyricQuery).then((res) => {
-              sendImage(res[0].thumbnail , `*${res[0].author}-${res[0].title}*\n\n${res[0].lyrics} \n\n > ${botName} `)
-            })
-          } catch (e) {
-            reply("*An error occured!*" + e);
-          }
-        }
+        // if (!lyricQuery) {
+        //   errorMsg("Need a Query!", "lyrics", "Song Name");
+        // } else {
+        //   try {
+        //     lyrics(lyricQuery).then((res) => {
+        //       sendImage(res[0].thumbnail , `*${res[0].author}-${res[0].title}*\n\n${res[0].lyrics} \n\n > ${botName} `)
+        //     })
+        //   } catch (e) {
+        //     reply("*An error occured!*" + e);
+        //   }
+        // }
       }
 
       if (body.startsWith(prefix + "yta")) {
