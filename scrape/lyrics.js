@@ -24,7 +24,6 @@ async function lyrics(q) {
 
         const response = await axios.get(url)
         const lyrics_url = response.data.response.sections[0].hits[0]?.result.url
-        console.log(lyrics_url)
         const lyrics_thumb = response.data.response.sections[0].hits[0]?.result.header_image_url
         const lyrics_title = response.data.response.sections[0].hits[0]?.result.title
         const author = response.data.response.sections[0].hits[0]?.result.primary_artist_names
@@ -45,8 +44,7 @@ async function lyrics(q) {
             }
         ]
 
-        console.log(res)
-        // return res
+        return res
         
     } catch (err) {
         console.log(err)
