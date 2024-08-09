@@ -22,11 +22,12 @@ async function lyrics(q) {
 
     try {
 
-        const response = await axios.get(url)
-        const lyrics_url = response.data.response.sections[0].hits[0]?.result.url
-        const lyrics_thumb = response.data.response.sections[0].hits[0]?.result.header_image_url
-        const lyrics_title = response.data.response.sections[0].hits[0]?.result.title
-        const author = response.data.response.sections[0].hits[0]?.result.primary_artist_names
+        const response = await fetch(url)
+        const data = await response.json();
+        const lyrics_url = data.response.sections[0].hits[0]?.result.url
+        const lyrics_thumb = data.response.sections[0].hits[0]?.result.header_image_url
+        const lyrics_title = data.response.sections[0].hits[0]?.result.title
+        const author = data.response.sections[0].hits[0]?.result.primary_artist_names
         
         const r = await axios.get(lyrics_url)
         const $ = cheerio.load(r.data)
