@@ -23,7 +23,9 @@ async function lyrics(q) {
     try {
 
         const response = await fetch(url)
+        console.log(response)
         const data = await response.json();
+        console.log(data)
         const lyrics_url = data.response.sections[0].hits[0]?.result.url
         const lyrics_thumb = data.response.sections[0].hits[0]?.result.header_image_url
         const lyrics_title = data.response.sections[0].hits[0]?.result.title
