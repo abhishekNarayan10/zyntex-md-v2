@@ -339,15 +339,14 @@ async function zyntex() {
       if (body.startsWith(prefix + "lyrics")) {
         read(), type(), react('💎');
 
-        const lyricQuery = body.slice(7).trim()
+        const lyricQuery = body.slice(8)
 
         if (!lyricQuery) {
           errorMsg("Need a Query!", "lyrics", "Song Name");
         } else {
           try {
             lyrics(lyricQuery).then((res) => {
-              console.log(res)
-              sendImage(res.thumbnail , `*${res.author}-${res.title}*\n\n${res.lyrics} \n\n >${botName}`)
+              sendImage(res[0].thumbnail , `*${res[0].author}-${res[0].title}*\n\n${res[0].lyrics} \n\n > ${botName} `)
             })
           } catch (e) {
             reply("*An error occured!*" + e);

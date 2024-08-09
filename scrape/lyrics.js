@@ -35,7 +35,7 @@ async function lyrics(q) {
         let n1 = n.replace(/\[/g, "\n");
         let n2 = n1.replace(/]/g, "\n");
         
-        const data = [
+        const res = [
             {
                 'title' : lyrics_title,
                 'author' : author,
@@ -44,7 +44,7 @@ async function lyrics(q) {
             }
         ]
 
-        return data
+        return res
         
     } catch (err) {
         console.log(err)
