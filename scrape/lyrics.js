@@ -22,7 +22,7 @@ async function lyrics(q) {
 
     try {
 
-        const response = await axios.get(url)
+        const response = await axios.get(url, options)
         const lyrics_url = response.data.response.sections[0].hits[0]?.result.url
         const lyrics_thumb = response.data.response.sections[0].hits[0]?.result.header_image_url
         const lyrics_title = response.data.response.sections[0].hits[0]?.result.title
@@ -43,7 +43,6 @@ async function lyrics(q) {
                 'lyrics' : n2
             }
         ]
-
         return res
         
     } catch (err) {
