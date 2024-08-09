@@ -28,7 +28,7 @@ async function lyrics(q) {
         const lyrics_title = response.data.response.sections[0].hits[0]?.result.title
         const author = response.data.response.sections[0].hits[0]?.result.primary_artist_names
         
-        const r = await axios.get(lyrics_url)
+        const r = await axios.get(lyrics_url , options)
         const $ = cheerio.load(r.data)
         const lyrics = $('#lyrics-root > div.Lyrics__Container-sc-1ynbvzw-1.kUgSbL').text().replace(/([A-HJ-Z])/g, "\n$1").trim()
         let n = lyrics.replace(/[\()]/g, "")
