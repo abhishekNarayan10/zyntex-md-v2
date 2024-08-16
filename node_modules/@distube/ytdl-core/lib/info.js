@@ -7,7 +7,7 @@ const formatUtils = require('./format-utils');
 const urlUtils = require('./url-utils');
 const extras = require('./info-extras');
 const Cache = require('./cache');
-const { defaultAgent } = require('./agent');
+const sig = require('./sig');
 
 
 const BASE_URL = 'https://www.youtube.com/watch?v=';
@@ -217,30 +217,56 @@ const parseFormats = player_response => {
  * @returns {Promise<Object>}
  */
 exports.getInfo = async(id, options) => {
+  utils.applyIPv6Rotations(options);
+  utils.applyDefaultHeaders(options);
+  utils.applyDefaultAgent(options);
+  utils.applyOldLocalAddress(options);
   const info = await exports.getBasicInfo(id, options);
-  const [iosPlayerResponse, androidPlayerResponse] = await Promise.all([
-    fetchIosJsonPlayer(id, options),
-    fetchAndroidJsonPlayer(id, options),
-  ]);
-  info.formats = parseFormats(androidPlayerResponse).concat(parseFormats(iosPlayerResponse));
   let funcs = [];
-  if (info.formats.length) {
-    funcs.push(info.formats);
-  }
-  if (androidPlayerResponse && androidPlayerResponse.streamingData) {
-    if (androidPlayerResponse.streamingData.dashManifestUrl) {
-      funcs.push(getDashManifest(androidPlayerResponse.streamingData.dashManifestUrl, options));
+  try {
+    if (info.videoDetails.age_restricted) throw Error('Cannot download age restricted videos with mobile clients');
+    const [iosPlayerResponse, androidPlayerResponse] = await Promise.all([
+      fetchIosJsonPlayer(id, options),
+      fetchAndroidJsonPlayer(id, options),
+    ]);
+    info.formats = parseFormats(androidPlayerResponse).concat(parseFormats(iosPlayerResponse));
+    if (info.formats.length) {
+      funcs.push(info.formats);
     }
-    if (androidPlayerResponse.streamingData.hlsManifestUrl) {
-      funcs.push(getM3U8(androidPlayerResponse.streamingData.hlsManifestUrl, options));
+    if (androidPlayerResponse && androidPlayerResponse.streamingData) {
+      if (androidPlayerResponse.streamingData.dashManifestUrl) {
+        funcs.push(getDashManifest(androidPlayerResponse.streamingData.dashManifestUrl, options));
+      }
+      if (androidPlayerResponse.streamingData.hlsManifestUrl) {
+        funcs.push(getM3U8(androidPlayerResponse.streamingData.hlsManifestUrl, options));
+      }
     }
-  }
-  if (iosPlayerResponse && iosPlayerResponse.streamingData) {
-    if (iosPlayerResponse.streamingData.dashManifestUrl) {
-      funcs.push(getDashManifest(iosPlayerResponse.streamingData.dashManifestUrl, options));
+    if (iosPlayerResponse && iosPlayerResponse.streamingData) {
+      if (iosPlayerResponse.streamingData.dashManifestUrl) {
+        funcs.push(getDashManifest(iosPlayerResponse.streamingData.dashManifestUrl, options));
+      }
+      if (iosPlayerResponse.streamingData.hlsManifestUrl) {
+        funcs.push(getM3U8(iosPlayerResponse.streamingData.hlsManifestUrl, options));
+      }
     }
-    if (iosPlayerResponse.streamingData.hlsManifestUrl) {
-      funcs.push(getM3U8(iosPlayerResponse.streamingData.hlsManifestUrl, options));
+  } catch (_) {
+    // Bring back web-scraping for now. TODO: tv client
+    info.html5player = info.html5player ||
+      getHTML5player(await getWatchHTMLPageBody(id, options)) || getHTML5player(await getEmbedPageBody(id, options));
+    if (!info.html5player) {
+      throw Error('Unable to find html5player file');
+    }
+    const html5player = new URL(info.html5player, BASE_URL).toString();
+    funcs.push(sig.decipherFormats(parseFormats(info.player_response), html5player, options));
+    if (info.player_response && info.player_response.streamingData) {
+      if (info.player_response.streamingData.dashManifestUrl) {
+        let url = info.player_response.streamingData.dashManifestUrl;
+        funcs.push(getDashManifest(url, options));
+      }
+      if (info.player_response.streamingData.hlsManifestUrl) {
+        let url = info.player_response.streamingData.hlsManifestUrl;
+        funcs.push(getM3U8(url, options));
+      }
     }
   }
 
@@ -248,7 +274,6 @@ exports.getInfo = async(id, options) => {
   info.formats = Object.values(Object.assign({}, ...results));
   info.formats = info.formats.map(formatUtils.addFormatMeta);
   info.formats.sort(formatUtils.sortFormats);
-
 
   info.full = true;
   return info;
@@ -288,7 +313,7 @@ const fetchIosJsonPlayer = async(videoId, options) => {
     },
   };
 
-  const { jar, dispatcher } = options.agent || defaultAgent;
+  const { jar, dispatcher } = options.agent;
   const opts = {
     requestOptions: {
       method: 'POST',
@@ -353,7 +378,7 @@ const fetchAndroidJsonPlayer = async(videoId, options) => {
     },
   };
 
-  const { jar, dispatcher } = options.agent || defaultAgent;
+  const { jar, dispatcher } = options.agent;
   const opts = {
     requestOptions: {
       method: 'POST',
