@@ -20,7 +20,7 @@ const {
   BufferJSON,} = require("@whiskeysockets/baileys");
 let { Boom } = require("@hapi/boom");
 const fs = require("fs");
-const ytdl = require('ytdl-core');
+const ytdl = require('@ybd-project/ytdl-core');
 require("dotenv").config();
 const c = require("ansi-colors");
 var figlet = require("figlet");
