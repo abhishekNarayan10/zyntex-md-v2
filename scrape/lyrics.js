@@ -42,7 +42,7 @@ async function lyrics(q) {
                 'thumbnail' : lyrics_thumb,
                 'lyrics' : n2
             }
-        ]
+        ] 
         return res
         
     } catch (err) {

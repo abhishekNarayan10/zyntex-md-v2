@@ -683,6 +683,17 @@ async function zyntex() {
 
       }
 
+      if(body.startsWith(prefix + 'img')) {
+        react('🪄') , type() , read()
+        const q = body.slice(5)
+        if(!q){
+          errorMsg("Need a Query!" , "img" ,"Query")
+        }else{
+          reply("*Generating...*  🔄");
+          sendImage(`https://image.pollinations.ai/prompt/${q}?nologo=1` , `> Made with ❤️ by ${botName}`)
+        }
+      }
+
       if(body === prefix + 'news'){
       react('📰') , type() , read()
       newsScrape().then((res) => {
