@@ -1,6 +1,5 @@
 const axios  = require('axios');
 const cheerio = require('cheerio');
-const { RetryHandler } = require('undici-types');
 require('dotenv').config('./env')
 
 async function lyrics(faded) {
