@@ -1,40 +1,23 @@
 const axios  = require('axios');
 const cheerio = require('cheerio');
+const { RetryHandler } = require('undici-types');
 require('dotenv').config('./env')
 
-async function lyrics(q) {
+async function lyrics(faded) {
 
-    const url = `https://genius.com/api/search/multi?per_page=1&q=${q}`
-    const userName = process.env.BRIGHT_USERNAME;
-    const passWord = process.env.BRIGHT_PASSWORD;
-    const port = 22225;
-    const sessionId = (10000000 * Math.random()) | 0
-    const u = userName + - + 'session' + - + sessionId
-    const options = {
-        auth: {
-            username : u,
-            password : passWord
-        },
-        host: 'brd.superproxy.io',
-        port: port,
-        rejectUnauthorized: false
-    }
+    const url = `https://lrclib.net/api/search?q=${q}`
+    try{
 
-    try {
-
-        const response = await axios.get(url, options)
-        const lyrics_url = response.data.response.sections[0].hits[0]?.result.url
-        const lyrics_thumb = response.data.response.sections[0].hits[0]?.result.header_image_url
-        const lyrics_title = response.data.response.sections[0].hits[0]?.result.title
-        const author = response.data.response.sections[0].hits[0]?.result.primary_artist_names
-        
-        const r = await axios.get(lyrics_url , options)
-        const $ = cheerio.load(r.data)
-        const lyrics = $('#lyrics-root > div.Lyrics__Container-sc-1ynbvzw-1.kUgSbL').text().replace(/([A-HJ-Z])/g, "\n$1").trim()
-        let n = lyrics.replace(/[\()]/g, "")
-        let n1 = n.replace(/\[/g, "\n");
-        let n2 = n1.replace(/]/g, "\n");
-        
+        const r = await fetch(url);
+        if(r.status === 404){
+            return "Can't find this song!"
+        }else{
+            const response = await r.json();
+            const lyrics_title = response.trackName;
+            const author = response.artistName;
+            const lyrics_thumb = '';
+            const n2 = response.plainLyrics;
+        }
         const res = [
             {
                 'title' : lyrics_title,
