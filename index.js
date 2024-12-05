@@ -345,7 +345,7 @@ async function zyntex() {
         } else {
           try {
             lyrics(lyricQuery).then((res) => {
-              // reply(`*${res[0].author}-${res[0].title}*\n\n${res[0].lyrics} \n\n > ${botName} `)
+              reply(`*${res[0].author}-${res[0].title}*\n\n${res[0].lyrics} \n\n > ${botName} `)
               // sendImage(res[0].thumbnail , `*${res[0].author}-${res[0].title}*\n\n${res[0].lyrics} \n\n > ${botName} `)
             })
           } catch (e) {
