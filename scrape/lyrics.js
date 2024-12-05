@@ -1,8 +1,8 @@
 const axios  = require('axios');
 const cheerio = require('cheerio');
-require('dotenv').config('./env')
 
-async function lyrics(faded) {
+
+async function lyrics(q) {
 
     const url = `https://lrclib.net/api/search?q=${q}`
     try{
@@ -15,14 +15,20 @@ async function lyrics(faded) {
             const lyrics_title = response.trackName;
             const author = response.artistName;
             const lyrics_thumb = '';
-            const n2 = response.plainLyrics;
+            if(response.instrumental === true){
+                let n2 , n3 = "[ Instrumental ]";
+            } else {
+                n2 = response.plainLyrics;
+                n3 = response.syncedLyrics;
+            }
         }
         const res = [
             {
                 'title' : lyrics_title,
                 'author' : author,
                 'thumbnail' : lyrics_thumb,
-                'lyrics' : n2
+                'lyrics' : n2,
+                'synced_lyrics' : n3
             }
         ] 
         return res
