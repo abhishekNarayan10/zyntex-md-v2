@@ -16,7 +16,8 @@ async function lyrics(q) {
             var author = response[0].artistName;
             var lyrics_thumb = '';
             if(response[0].instrumental === true){
-                let n2 , n3 = "[ Instrumental ]";
+                var n2 = "[ Instrumental ]";
+                var n3 = "[ Instrumental ]";
             } else {
                 n2 = response[0].plainLyrics;
                 n3 = response[0].syncedLyrics;
