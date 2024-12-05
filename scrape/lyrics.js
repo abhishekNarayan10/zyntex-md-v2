@@ -8,10 +8,10 @@ async function lyrics(q) {
     try{
 
         const r = await fetch(url);
-        if(r.status === 404){
+        const response = await r.json();
+        if(!response[0]){
             return "Can't find this song!"
         }else{
-            const response = await r.json();
             var lyrics_title = response[0].trackName;
             var author = response[0].artistName;
             var lyrics_thumb = '';
