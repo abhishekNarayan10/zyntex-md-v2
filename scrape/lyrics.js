@@ -12,6 +12,7 @@ async function lyrics(q) {
             return "Can't find this song!"
         }else{
             const response = await r.json();
+            console.log(response)
             const lyrics_title = response[0].trackName;
             const author = response[0].artistName;
             const lyrics_thumb = '';
