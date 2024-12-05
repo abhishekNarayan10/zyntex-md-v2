@@ -12,7 +12,7 @@ async function lyrics(q) {
             return "Can't find this song!"
         }else{
             const response = await r.json();
-            const lyrics_title = response.trackName;
+            const lyrics_title = response[0].trackName;
             const author = response.artistName;
             const lyrics_thumb = '';
             if(response.instrumental === true){
