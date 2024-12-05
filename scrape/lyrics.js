@@ -13,13 +13,13 @@ async function lyrics(q) {
         }else{
             const response = await r.json();
             const lyrics_title = response[0].trackName;
-            const author = response.artistName;
+            const author = response[0].artistName;
             const lyrics_thumb = '';
             if(response.instrumental === true){
                 let n2 , n3 = "[ Instrumental ]";
             } else {
-                n2 = response.plainLyrics;
-                n3 = response.syncedLyrics;
+                n2 = response[0].plainLyrics;
+                n3 = response[0].syncedLyrics;
             }
         }
         const res = [
@@ -31,6 +31,8 @@ async function lyrics(q) {
                 'synced_lyrics' : n3
             }
         ] 
+
+        console.log(res)
         return res
         
     } catch (err) {
