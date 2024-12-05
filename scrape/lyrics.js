@@ -10,14 +10,18 @@ async function lyrics(q) {
         const r = await fetch(url);
         const response = await r.json();
         if(!response[0]){
-            return "Can't find this song!"
+            var lyrics_title = ":("
+            var author = ":("
+            var lyrics_thumb = ":("
+            var n2 = "Can't find lyrics for this song!"
+            var n3 = "Can't find lyrics for this song!"
         }else{
-            var lyrics_title = response[0].trackName;
-            var author = response[0].artistName;
-            var lyrics_thumb = '';
+            lyrics_title = response[0].trackName;
+            author = response[0].artistName;
+            lyrics_thumb = '';
             if(response[0].instrumental === true){
-                var n2 = "[ Instrumental ]";
-                var n3 = "[ Instrumental ]";
+                n2 = "[ Instrumental ]";
+                n3 = "[ Instrumental ]";
             } else {
                 n2 = response[0].plainLyrics;
                 n3 = response[0].syncedLyrics;
