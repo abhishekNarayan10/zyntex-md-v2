@@ -12,7 +12,7 @@ async function lyrics(q) {
             return "Can't find this song!"
         }else{
             const response = await r.json();
-            console.log(response)
+            console.log(response[0])
             const lyrics_title = response[0].trackName;
             const author = response[0].artistName;
             const lyrics_thumb = '';
@@ -32,8 +32,6 @@ async function lyrics(q) {
                 'synced_lyrics' : n3
             }
         ] 
-
-        console.log(res)
         return res
         
     } catch (err) {
