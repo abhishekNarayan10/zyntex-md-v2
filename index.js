@@ -38,8 +38,11 @@ const {instadl} = require('./scrape/instadl')
 const {lyrics} = require('./scrape/lyrics.js')
 
  
-/////////////////////////
+////////////plugins/////////////
 
+const {ping} = require('./plugins/ping.js')
+
+////////////plugins/////////////
 
 
 let botName = "𝙕𝙮𝙣𝙩3𝙭!";
@@ -270,11 +273,13 @@ async function zyntex() {
 
       if (body === prefix + "ping") {
         read(), type(), react("📍");
-        const start = Date.now();
-        await axios.get("https://google.com");
-        const end = Date.now();
-        const ping = end - start;
-        return reply("```Pong: " + ping + "ms```");
+        try{
+          ping().then((res) => {
+            reply("```Pong: " + res[0].r + "ms```")
+          })
+        }catch(err){
+          reply("*An Error Occured!*\n" + `_*${err}*_`);
+        }
       }
 
       if (body === prefix + "alive") {
@@ -592,7 +597,7 @@ async function zyntex() {
           try{
             yts(query).then((res)=>{
               const r = res.videos
-              var msg = `_Search results for '${query}'._\n\n\n *1. ${r[0].title}* \n _Url: ${r[0].url}_ \n\n *2. ${r[1].title}* \n _Url: ${r[1].url}_ \n\n *3. ${r[2].title}* \n _Url: ${r[2].url}_ \n\n *4. ${r[3].title}* \n _Url: ${r[3].url}_ \n\n *5. ${r[4].title}* \n _Url: ${r[4].url}_ \n\n *6. ${r[5].title}* \n _Url: ${r[5].url}_ \n\n *7. ${r[6].title}* \n _Url: ${r[6].url}_ \n\n *8. ${r[7].title}* \n _Url: ${r[7].url}_ \n\n *9. ${r[8].title}* \n _Url: ${r[8].url}_ \n\n *10. ${r[9].title}* \n _Url: ${r[9].url}_ \n\n\n _For downloading:_ \n     _${prefix}yta <Copied Url> (For audio)._ \n     _${prefix}ytv <Copied Url> (For video)._ \n\n _${prefix}yts <Copied Url> (Gets you more information of the video)._ \n\n _Note: Videos larger than 100MB is not sent._`
+              var msg = `_Search results for '${query}'._\n\n\n *1. ${r[0].title}* \n _Url: ${r[0].url}_ \n\n *2. ${r[1].title}* \n _Url: ${r[1].url}_ \n\n *3. ${r[2].title}* \n _Url: ${r[2].url}_ \n\n *4. ${r[3].title}* \n _Url: ${r[3].url}_ \n\n *5. ${r[4].title}* \n _Url: ${r[4].url}_ \n\n *6. ${r[5].title}* \n _Url: ${r[5].url}_ \n\n *7. ${r[6].title}* \n _Url: ${r[6].url}_ \n\n *8. ${r[7].title}* \n _Url: ${r[7].url}_ \n\n *9. ${r[8].title}* \n _Url: ${r[8].url}_ \n\n *10. ${r[9].title}* \n _Url: ${r[9].url}_ \n\n\n _For downloading:_ \n     _${prefix}yta <Copied Url> (For audio)._ \n     _${prefix}ytv <Copied Url> (For video)._ \n\n _${prefix}yts <Copied Url> (Gets you more information about the video)._ \n\n _Note: Videos/Audios larger than 100MB is not sent._`
               reply(msg)
             })
           }catch(err){
@@ -603,7 +608,7 @@ async function zyntex() {
           const id = videoId.split('https://youtube.com/watch?v=')
           try{
             yts({videoId: id[1]}).then((res)=>{
-            let cap = `•ᴛɪᴛʟᴇ: *${res.title}* \n\n •ᴜʀʟ: *${res.url}* \n\n •ᴅᴜʀᴀᴛɪᴏɴ: *${res.timestamp}* \n\n •ᴠɪᴇᴡꜱ: *${res.views}* \n\n •ᴀᴜᴛʜᴏʀ: *${res.author.name}* \n\n •ᴜᴘʟᴏᴅᴇᴅ: *${res.ago}* \n\n •ᴜᴘʟᴏᴀᴅᴇᴅ ᴅᴀᴛᴇ: *${res.uploadDate}* \n\n •ᴅᴇꜱᴄʀɪᴘᴛɪᴏɴ: \n _ ${res.description} _ `
+            let cap = `•ᴛɪᴛʟᴇ: *${res.title}* \n\n •ᴜʀʟ: *${res.url}* \n\n •ᴅᴜʀᴀᴛɪᴏɴ: *${res.timestamp}* \n\n •ᴠɪᴇᴡꜱ: *${res.views}* \n\n •ᴀᴜᴛʜᴏʀ: *${res.author.name}* \n\n •ᴜᴘʟᴏᴀᴅᴇᴅ: *${res.ago}* \n\n •ᴜᴘʟᴏᴀᴅᴇᴅ ᴅᴀᴛᴇ: *${res.uploadDate}* \n\n •ᴅᴇꜱᴄʀɪᴘᴛɪᴏɴ: \n _ ${res.description} _ `
             sendImage(res.thumbnail , cap )
           })
           }catch(err){

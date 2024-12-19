@@ -11,7 +11,7 @@ async function lyrics(q) {
         const response = await r.json();
         if(!response[0]){
             var lyrics_title = ":("
-            var author = ":("
+            var author = ":( "
             var lyrics_thumb = ":("
             var n2 = "Can't find lyrics for this song!"
             var n3 = "Can't find lyrics for this song!"
