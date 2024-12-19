@@ -9,7 +9,7 @@ async function ping() {
     const res = [{
         'r' : ping
     }]
-    
+    return res
 }
 
 module.exports = {ping}
