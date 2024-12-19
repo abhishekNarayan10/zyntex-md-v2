@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 async function ping() {
 
     const start = Date.now();
