@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 let newMessage = require("../index.js")
 const {reply} = require("../index.js")
 
-newMessage.then((r) => {
+newMessage().then((r) => {
     if(r[0].message === 'ping'){
         async function ping() {
 
