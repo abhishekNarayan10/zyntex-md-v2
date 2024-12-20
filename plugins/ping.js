@@ -3,7 +3,7 @@ const {newMessage} = require("../index.js")
 
 const {reply} = require("../index.js")
 
-newMessage().then((r) => {
+await newMessage().then((r) => {
     if(r[0].message === 'ping'){
         async function ping() {
 
