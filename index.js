@@ -41,6 +41,7 @@ const {lyrics} = require('./scrape/lyrics.js')
 ////////////plugins/////////////
 
 const {ping} = require('./plugins/ping.js')
+const {quote} = require('./plugins/quote.js')
 
 ////////////plugins/////////////
 
@@ -197,111 +198,151 @@ async function zyntex() {
         id: q.key.id,
       };
 
-      let body = ''
-      if (messageType === 'conversation' && m.type === 'notify') {
-        var grpMsg = q.message.conversation
-        body = grpMsg
-      } else if (messageType === 'extendedTextMessage' && m.type === 'notify') {
-        var dmMsg = q.message.extendedTextMessage.text
-        body = dmMsg
+      async function newMessage() {
+
+        let body = ''
+        if (messageType === 'conversation' && m.type === 'notify') {
+          var grpMsg = q.message.conversation
+          body = grpMsg
+        } else if (messageType === 'extendedTextMessage' && m.type === 'notify') {
+          var dmMsg = q.message.extendedTextMessage.text
+          body = dmMsg
+        }
+
+        const r = [{
+          'message' : body
+        }]
+        
+        return r
       }
 
+      module.exports = {newMessage}
 
-      if (messageType === "imageMessage" && m.type === "notify") {
-        var imgMsg = q.message.imageMessage.url;
-        var imgMsgCaption = q.message.imageMessage.caption;
-      }
-      if (messageType === "audioMessage" && m.type === "notify") {
-        var audMsg = q.message.audioMessage.url;
-      }
-      if (messageType === "videoMessage" && m.type === "notify") {
-        var vidMsg = q.message.videoMessage.url;
-        var vidMsgCaption = q.message.videoMessage.caption;
-      }
+
+      // if (messageType === "imageMessage" && m.type === "notify") {
+      //   var imgMsg = q.message.imageMessage.url;
+      //   var imgMsgCaption = q.message.imageMessage.caption;
+      // }
+      // if (messageType === "audioMessage" && m.type === "notify") {
+      //   var audMsg = q.message.audioMessage.url;
+      // }
+      // if (messageType === "videoMessage" && m.type === "notify") {
+      //   var vidMsg = q.message.videoMessage.url;
+      //   var vidMsgCaption = q.message.videoMessage.caption;
+      // }
 
       const reply = async(msg) => {
         await zyn.sendMessage(id, { text: msg }, { quoted: q });
       };
-      const sendVideo = async(path , cap) => {
-        await zyn.sendMessage(id, {video: {url : path} , mimetype: 'video/mp4' , caption: cap},{quoted : q})
-      }
-      const sendImage = async(path , cap) => {
-        await zyn.sendMessage(id, {image : {url : path}, caption: cap},{quoted:q})
-      }
-      const sendAudio = async(path) => {
-        await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp4'} ,{quoted:q})
-      }
-      const sendVoice = async(path) => {
-        await zyn.sendMessage(id, {audio: {url: path},mimetype: 'audio/mp4' , ptt:true, waveform: [0 , 100 , 0 , 100 , 0]} , {quoted:q})
-      }
-      const message = (msg) => {
-        zyn.sendMessage(id, { text: msg });
-      };
+      module.exports = {reply}
+      // const sendVideo = async(path , cap) => {
+      //   await zyn.sendMessage(id, {video: {url : path} , mimetype: 'video/mp4' , caption: cap},{quoted : q})
+      // }
+      // const sendImage = async(path , cap) => {
+      //   await zyn.sendMessage(id, {image : {url : path}, caption: cap},{quoted:q})
+      // }
+      // const sendAudio = async(path) => {
+      //   await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp4'} ,{quoted:q})
+      // }
+      // const sendVoice = async(path) => {
+      //   await zyn.sendMessage(id, {audio: {url: path},mimetype: 'audio/mp4' , ptt:true, waveform: [0 , 100 , 0 , 100 , 0]} , {quoted:q})
+      // }
+      // const message = (msg) => {
+      //   zyn.sendMessage(id, { text: msg });
+      // };
 
-      const read = () => { 
-        zyn.readMessages([q.key]);
-      };
+      // const read = () => { 
+      //   zyn.readMessages([q.key]);
+      // };
 
-      const type = () => {
-        zyn.sendPresenceUpdate("composing", id);
-        delay(1000);
-      };
+      // const type = () => {
+      //   zyn.sendPresenceUpdate("composing", id);
+      //   delay(1000);
+      // };
 
-      const record = () => {
-        zyn.sendPresenceUpdate("recording", id);
-        delay(1000);
-      };
+      // const record = () => {
+      //   zyn.sendPresenceUpdate("recording", id);
+      //   delay(1000);
+      // };
 
-      const errorMsg = (query, command, example) => {
-        reply(
-          "_*" +
-            query +
-            "*_\n\n```ex:  " +
-            prefix +
-            command +
-            " <" +
-            example +
-            ">```"
-        );
-      };
+      // const errorMsg = (query, command, example) => {
+      //   reply(
+      //     "_*" +
+      //       query +
+      //       "*_\n\n```ex:  " +
+      //       prefix +
+      //       command +
+      //       " <" +
+      //       example +
+      //       ">```"
+      //   );
+      // };
 
-      const react = (emoji) => {
-        zyn.sendMessage(id, { react: { text: emoji, key: q.key } });
-      };
+      // const react = (emoji) => {
+      //   zyn.sendMessage(id, { react: { text: emoji, key: q.key } });
+      // };
   
-      //messaging!
+      // //messaging!
+      // if (body === prefix + "alive") {
+      //   read(), type(), react("🪼")
 
-      if (body === prefix + "ping") {
-        read(), type(), react("📍");
-        try{
-          ping().then((res) => {
-            reply("```Pong: " + res[0].r + "ms```")
-          })
-        }catch(err){
-          reply("*An Error Occured!*\n" + `_*${err}*_`);
-        }
-      }
+      //   const msg = `*Hey! ${userName}* \n*I'm Alive...*`;
+      //   sendVoice(randomBgm)
+      //   sendImage(randomAliveImages , msg)
+      // }
 
-      if (body === prefix + "alive") {
-        read(), type(), react("🪼")
+      // if (body === prefix + "ping") {
+      //   read(), type(), react("📍");
+      //   try{
+      //     ping().then((res) => {
+      //       reply(res[0].r)
+      //     })
+      //   }catch(err){
+      //     reply("*An Error Occured!*\n" + `_*${err}*_`);
+      //   }
+      // }
 
-        const msg = `*Hey! ${userName}* \n*I'm Alive...*`;
-        sendVoice(randomBgm)
-        sendImage(randomAliveImages , msg)
-      }
+      // if (body === prefix + "quote") {
+      //   read(), type(), react("📜");
+      //   try{
+      //     quote().then((res) => {
+      //       reply(res[0].r)
+      //     })
+      //   }catch(err){
+      //     reply("*An Error Occured!*\n" + `_*${err}*_`);
+      //   }
+      // }
 
-      if(body === prefix + 'quote'){
-        read() , type() , react('📜')
 
-        const response = await fetch('https://api.quotable.io/random')
-        const quote = await response.json()
 
-        const qc = quote.content
-        const qa = quote.author
-        reply(`_*${qc}*_\n\n- *${qa}*`)
 
-      }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      /*
       if (body.startsWith(prefix + "ytv")) {
         read(), type(), react("🎥");
 
@@ -311,30 +352,7 @@ async function zyntex() {
           errorMsg("Give a Youtube video Url!", "ytv", "YouTube Video Url");
         } else {
           try {
-            ytdl.getInfo(url).then((res) => {
-              const videoTitle = res.videoDetails.title;
-
-              reply("_*Downloading...*_\n" + "_" + videoTitle + "_");
-
-              const videoStream = ytdl(url, { quality: "18" });
-              const videoFileName = "./Zynt3x.mp4";
-              videoStream.pipe(fs.createWriteStream(videoFileName));
-
-              videoStream.on("finish", () => {
-                async function send() {
-                  await zyn.sendMessage(
-                    id,
-                    {
-                      video: { url: videoFileName },
-                      mimetype: "video/mp4",
-                      caption: "```" + videoTitle + "```",
-                    },
-                    { quoted: q }
-                  );
-                }
-                send();
-              });
-            });
+            
           } catch (err) {
             reply("*An Error Occured!*\n" + `_*${err}*_`);
           }
@@ -735,7 +753,7 @@ async function zyntex() {
           }
         }
       }
-
+        */
 
     } catch (err) {
       console.log(err);
