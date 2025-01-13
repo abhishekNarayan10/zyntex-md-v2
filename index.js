@@ -235,61 +235,61 @@ async function zyntex() {
         await zyn.sendMessage(id, { text: msg }, { quoted: q });
       };
       module.exports = {reply}
-      // const sendVideo = async(path , cap) => {
-      //   await zyn.sendMessage(id, {video: {url : path} , mimetype: 'video/mp4' , caption: cap},{quoted : q})
-      // }
-      // const sendImage = async(path , cap) => {
-      //   await zyn.sendMessage(id, {image : {url : path}, caption: cap},{quoted:q})
-      // }
-      // const sendAudio = async(path) => {
-      //   await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp4'} ,{quoted:q})
-      // }
-      // const sendVoice = async(path) => {
-      //   await zyn.sendMessage(id, {audio: {url: path},mimetype: 'audio/mp4' , ptt:true, waveform: [0 , 100 , 0 , 100 , 0]} , {quoted:q})
-      // }
-      // const message = (msg) => {
-      //   zyn.sendMessage(id, { text: msg });
-      // };
+      const sendVideo = async(path , cap) => {
+        await zyn.sendMessage(id, {video: {url : path} , mimetype: 'video/mp4' , caption: cap},{quoted : q})
+      }
+      const sendImage = async(path , cap) => {
+        await zyn.sendMessage(id, {image : {url : path}, caption: cap},{quoted:q})
+      }
+      const sendAudio = async(path) => {
+        await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp4'} ,{quoted:q})
+      }
+      const sendVoice = async(path) => {
+        await zyn.sendMessage(id, {audio: {url: path},mimetype: 'audio/mp4' , ptt:true, waveform: [0 , 100 , 0 , 100 , 0]} , {quoted:q})
+      }
+      const message = (msg) => {
+        zyn.sendMessage(id, { text: msg });
+      };
 
-      // const read = () => { 
-      //   zyn.readMessages([q.key]);
-      // };
+      const read = () => { 
+        zyn.readMessages([q.key]);
+      };
 
-      // const type = () => {
-      //   zyn.sendPresenceUpdate("composing", id);
-      //   delay(1000);
-      // };
+      const type = () => {
+        zyn.sendPresenceUpdate("composing", id);
+        delay(1000);
+      };
 
-      // const record = () => {
-      //   zyn.sendPresenceUpdate("recording", id);
-      //   delay(1000);
-      // };
+      const record = () => {
+        zyn.sendPresenceUpdate("recording", id);
+        delay(1000);
+      };
 
-      // const errorMsg = (query, command, example) => {
-      //   reply(
-      //     "_*" +
-      //       query +
-      //       "*_\n\n```ex:  " +
-      //       prefix +
-      //       command +
-      //       " <" +
-      //       example +
-      //       ">```"
-      //   );
-      // };
+      const errorMsg = (query, command, example) => {
+        reply(
+          "_*" +
+            query +
+            "*_\n\n```ex:  " +
+            prefix +
+            command +
+            " <" +
+            example +
+            ">```"
+        );
+      };
 
-      // const react = (emoji) => {
-      //   zyn.sendMessage(id, { react: { text: emoji, key: q.key } });
-      // };
+      const react = (emoji) => {
+        zyn.sendMessage(id, { react: { text: emoji, key: q.key } });
+      };
   
-      // //messaging!
-      // if (body === prefix + "alive") {
-      //   read(), type(), react("🪼")
+      //messaging!
+      if (body === prefix + "alive") {
+        read(), type(), react("🪼")
 
-      //   const msg = `*Hey! ${userName}* \n*I'm Alive...*`;
-      //   sendVoice(randomBgm)
-      //   sendImage(randomAliveImages , msg)
-      // }
+        const msg = `*Hey! ${userName}* \n*I'm Alive...*`;
+        sendVoice(randomBgm)
+        sendImage(randomAliveImages , msg)
+      }
 
       // if (body === prefix + "ping") {
       //   read(), type(), react("📍");
@@ -342,7 +342,6 @@ async function zyntex() {
 
 
       
-      /*
       if (body.startsWith(prefix + "ytv")) {
         read(), type(), react("🎥");
 
@@ -753,7 +752,7 @@ async function zyntex() {
           }
         }
       }
-        */
+      
 
     } catch (err) {
       console.log(err);
