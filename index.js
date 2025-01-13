@@ -198,7 +198,6 @@ async function zyntex() {
         id: q.key.id,
       };
 
-      let newMessage = () => {
 
         let body = ''
         if (messageType === 'conversation' && m.type === 'notify') {
@@ -208,15 +207,6 @@ async function zyntex() {
           var dmMsg = q.message.extendedTextMessage.text
           body = dmMsg
         }
-
-        const r = [{
-          'message' : body
-        }]
-        
-        return r
-      }
-
-      module.exports = newMessage
 
 
       // if (messageType === "imageMessage" && m.type === "notify") {
