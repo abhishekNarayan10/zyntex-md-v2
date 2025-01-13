@@ -40,8 +40,8 @@ const {lyrics} = require('./scrape/lyrics.js')
  
 ////////////plugins/////////////
 
-const {ping} = require('./plugins/ping.js')
-const {quote} = require('./plugins/quote.js')
+// const {ping} = require('./plugins/ping.js')
+// const {quote} = require('./plugins/quote.js')
 
 ////////////plugins/////////////
 
