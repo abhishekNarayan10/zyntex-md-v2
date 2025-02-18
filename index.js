@@ -200,7 +200,7 @@ async function zyntex() {
 
 
         let body = ''
-        if (messageTynpe === 'conversation' && m.type === 'notify') {
+        if (messageType === 'conversation' && m.type === 'notify') {
           var grpMsg = q.message.conversation
           body = grpMsg
         } else if (messageType === 'extendedTextMessage' && m.type === 'notify') {
@@ -224,7 +224,7 @@ async function zyntex() {
       const reply = async(msg) => {
         await zyn.sendMessage(id, { text: msg }, { quoted: q });
       };
-      module.exports = {reply}
+  
       const sendVideo = async(path , cap) => {
         await zyn.sendMessage(id, {video: {url : path} , mimetype: 'video/mp4' , caption: cap},{quoted : q})
       }
