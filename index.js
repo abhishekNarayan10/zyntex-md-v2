@@ -200,7 +200,7 @@ async function zyntex() {
 
 
         let body = ''
-        if (messageType === 'conversation' && m.type === 'notify') {
+        if (messageTynpe === 'conversation' && m.type === 'notify') {
           var grpMsg = q.message.conversation
           body = grpMsg
         } else if (messageType === 'extendedTextMessage' && m.type === 'notify') {
@@ -281,16 +281,16 @@ async function zyntex() {
         sendImage(randomAliveImages , msg)
       }
 
-      // if (body === prefix + "ping") {
-      //   read(), type(), react("📍");
-      //   try{
-      //     ping().then((res) => {
-      //       reply(res[0].r)
-      //     })
-      //   }catch(err){
-      //     reply("*An Error Occured!*\n" + `_*${err}*_`);
-      //   }
-      // }
+      /* if (body === prefix + "ping") {
+        read(), type(), react("📍");
+        try{
+          await fetch('www.google.com')
+          reply(' ```Pin')
+        }catch(err){
+          reply("*An Error Occured!*\n" + `_*${err}*_`);
+        }
+      }
+      */
 
       // if (body === prefix + "quote") {
       //   read(), type(), react("📜");
