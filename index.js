@@ -234,6 +234,25 @@ async function zyntex() {
       const sendAudio = async(path) => {
         await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp4'} ,{quoted:q})
       }
+      const sendAudioV2 = async(path , title , body , thumb , mediaType , url) => {
+        await zyn.sendMessage(id, { 
+
+          audio: { url: fileName },
+            mimetype: path,
+            contextInfo: {
+              externalAdReply: {
+                title: title,
+                body: body,
+                thumbnailUrl: thumb,
+                mediaType: mediaType,
+                showAdAttribution: true,
+                renderLargerThumbnail: false,
+                sourceUrl: url,
+              },
+            },
+
+        } ,{quoted:q})
+      }
       const sendVoice = async(path) => {
         await zyn.sendMessage(id, {audio: {url: path},mimetype: 'audio/mp4' , ptt:true, waveform: [0 , 100 , 0 , 100 , 0]} , {quoted:q})
       }
@@ -388,14 +407,8 @@ async function zyntex() {
               stream.pipe(fs.createWriteStream(fileName));
 
               stream.on("finish", () => {
-                async function send() {
-                  await zyn.sendMessage(
-                    id,
-                    { audio: { url: fileName }, mimetype: "audio/mp4" },
-                    { quoted: q }
-                  );
-                }
-                send();
+                sendAudio(fileName);
+                return 0;
               });
             });
           } catch (err) {
@@ -430,6 +443,11 @@ async function zyntex() {
                 stream.pipe(fs.createWriteStream(fileName));
 
                 stream.on("finish", () => {
+                  sendAudioV2(fileName , videoTitle , botName , r , 1 , res.videoDetails.video_url);
+                  return 0;
+
+                  
+
                   async function send() {
                     await zyn.sendMessage(
                       id,
