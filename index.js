@@ -232,13 +232,13 @@ async function zyntex() {
         await zyn.sendMessage(id, {image : {url : path}, caption: cap},{quoted:q})
       }
       const sendAudio = async(path) => {
-        await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp4'} ,{quoted:q})
+        await zyn.sendMessage(id, {audio: {url:path}, mimetype: 'audio/mp3'} ,{quoted:q})
       }
       const sendAudioV2 = async(path , title , body , thumb , mediaType , url) => {
         await zyn.sendMessage(id, { 
 
-          audio: { url: fileName },
-            mimetype: path,
+          audio: { url: path },
+            mimetype: 'audio/mp3',
             contextInfo: {
               externalAdReply: {
                 title: title,
