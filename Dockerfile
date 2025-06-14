@@ -12,6 +12,7 @@ COPY package*.json ./
 
 # Install dependencies defined in package.json
 RUN npm install
+RUN yarn add
 
 # Copy the rest of your application code
 COPY . .
