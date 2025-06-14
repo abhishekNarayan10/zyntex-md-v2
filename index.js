@@ -30,7 +30,7 @@ const CryptoJS = require("crypto-js");
 const qrcode = require("qrcode-terminal");
 
 const { messageHandler } = require("./core/handler/msghandler.js");
-const path = require("path");
+const path = require("path"); 
 
 let botName = "𝙕𝙮𝙣𝙩3𝙭!";
 const prefix = process.env.BOT_PREFIX || ".";
