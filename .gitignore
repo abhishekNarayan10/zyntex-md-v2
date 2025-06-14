@@ -1,3 +1,4 @@
+node_modules/
 core/scraper/
 session/
 .vscode/
