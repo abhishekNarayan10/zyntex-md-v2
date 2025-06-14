@@ -1,4 +1,4 @@
-node_modules/
+node_modules
 core/scraper/
 session/
 yarn.lock
