@@ -1,9 +1,6 @@
 # Use an official Node.js image as a parent image
 FROM node:22
 
-# Install Python (required for youtube-dl-exec)
-RUN apt-get update && apt-get install -y python3 python3-pip
-
 # Set the working directory inside the container
 WORKDIR /app
 
