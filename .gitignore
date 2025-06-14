@@ -1,4 +1,4 @@
 core/scraper/
 session/
-yarn.lock
+node_modules/
 .vscode/
