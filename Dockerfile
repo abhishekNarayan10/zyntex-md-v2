@@ -10,7 +10,7 @@ COPY yarn.lock ./
 
 # Install dependencies defined in package.json
 RUN npm install
-RUN yarn add
+RUN yarn install
 
 # Copy the rest of your application code
 COPY . .
